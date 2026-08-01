@@ -8,6 +8,15 @@
     <meta name="theme-color" content="#121110" />
     <meta name="color-scheme" content="dark light" />
 
+    <!-- PWA — path แบบ relative ทั้งหมด เพื่อให้ทำงานใต้ subpath ของ GitHub Pages -->
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Workout" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,6 +38,8 @@
     </header>
 
     <main id="app"></main>
+
+    <div id="rest-timer" class="rt" hidden aria-live="polite"></div>
 
     <nav class="tabbar" aria-label="เมนูหลัก">
       <a href="#/" data-nav="home"><span class="tabbar__icon" aria-hidden="true">▤</span>ตาราง</a>

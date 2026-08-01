@@ -6,6 +6,47 @@
 ข้อมูลทั้งหมดเก็บใน `localStorage` ของเครื่อง ไม่มี backend ไม่มี login
 
 **Tech stack:** HTML + CSS + JavaScript (ES modules) ล้วน — ไม่มี build step ไม่มี npm install
+ไม่มีไลบรารีภายนอกเลยแม้แต่ตัวเดียว (กราฟวาดด้วย SVG เอง)
+
+---
+
+## ฟีเจอร์
+
+**หน้าตาราง (Home)**
+- การ์ด 3 วัน บอกจำนวนท่า / เซต / เวลาโดยประมาณ
+- แสดงว่าเล่นวันนั้นล่าสุดเมื่อไร และไฮไลต์วันที่ควรเล่นต่อไป (วันที่ห่างมากที่สุด)
+- ป้าย "เล่นค้างอยู่" ถ้ามี session ที่ยังไม่ได้กดจบ
+- นับจำนวนท่าที่พร้อมเพิ่มน้ำหนักของแต่ละวัน + สรุปปริมาตรรวมสัปดาห์นี้เทียบสัปดาห์ก่อน
+
+**หน้า Workout**
+- กรอกน้ำหนัก / จำนวนครั้งทีละเซต (`inputmode="decimal"` คีย์บอร์ดตัวเลขขึ้นเอง)
+- **Auto-fill** ค่าจากครั้งก่อนให้อัตโนมัติ พร้อมข้อความ "ครั้งก่อน 40 kg × 12" ใต้ช่อง
+- ติ๊กเซตเสร็จ → บันทึกทันที + เริ่มจับเวลาพักอัตโนมัติ
+- Progress bar ค้างด้านบนบอกว่าทำไปกี่เซตและปริมาตรรวมเท่าไร
+- ปุ่ม ▶ เปิดวิดีโอสอนท่า, แสดงเครื่องทดแทนถ้ายิมไม่มี
+- แบดจ์ "พร้อมเพิ่มน้ำหนัก" บนท่าที่ครั้งก่อนทำครบทุกเซตที่เพดานช่วงเรพ
+- กันจอดับระหว่างเล่นด้วย Screen Wake Lock API
+
+**Rest timer**
+- แถบค้างล่างจอ นับถอยหลังตาม `restSec` ของท่านั้น
+- ปุ่ม +15 / −15 / ข้าม
+- หมดเวลาแล้วมีเสียงบี๊บ (Web Audio) และสั่น (`navigator.vibrate`)
+- คำนวณจาก timestamp ปลายทาง ไม่ใช่การสะสมของ `setInterval` — สลับไปแอปอื่นแล้วกลับมาเวลายังตรง
+
+**ประวัติ & Progressive overload**
+- รายการ session ย้อนหลัง กดขยายดูรายละเอียดรายท่าได้
+- หน้ารายละเอียดรายท่า: กราฟน้ำหนักสูงสุดและปริมาตรรวมตามเวลา, สถิติ PR, บันทึกย้อนหลัง
+- คำแนะนำเมื่อพร้อมขยับน้ำหนัก
+
+**ตั้งค่า**
+- ธีม อัตโนมัติ / มืด / สว่าง
+- เปิด-ปิดเสียงและการสั่น
+- Export เป็นไฟล์ JSON, Import กลับ (ยืนยันก่อนเขียนทับ), ล้างข้อมูลทั้งหมด (ยืนยัน 2 ชั้น)
+
+**PWA**
+- ติดตั้งลงหน้าจอโฮมได้ และเปิดใช้ได้แม้ไม่มีเน็ต
+- Service worker เป็นแบบ network-first สำหรับไฟล์แอป → deploy แล้วเห็นของใหม่ทันที
+  ส่วนฟอนต์เป็น cache-first และตกกลับไปใช้ cache ทั้งหมดเมื่อออฟไลน์
 
 ---
 
@@ -24,26 +65,30 @@ npx serve -l 3000 .
 GitHub Pages ของรีโปทั่วไปจะอยู่ใต้ `/<repo-name>/` การทดสอบผ่าน subpath ช่วยจับ path ที่เขียนแบบ absolute ตั้งแต่ก่อน deploy
 
 ```bash
-mkdir -p /tmp/pages-test/workout && cp -R . /tmp/pages-test/workout && npx serve -l 3000 /tmp/pages-test
+mkdir -p /tmp/pages-test && ln -sfn "$PWD" /tmp/pages-test/workout && npx serve -l 3000 /tmp/pages-test
 ```
 
 แล้วเปิด http://localhost:3000/workout/ ถ้าหน้าตาปกติแปลว่า path ถูกต้องทั้งหมด
 
+> เวลาแก้ไฟล์แล้วไม่เห็นการเปลี่ยนแปลง ให้เช็ค service worker ก่อน —
+> เปิด DevTools → Application → Service Workers → **Update on reload** หรือกด Unregister แล้วรีโหลด
+
 ---
 
-## เปิด GitHub Pages
+## Deploy บน GitHub Pages
+
+ตั้งค่าไว้แล้วที่รีโปนี้ — **push เข้า `main` แล้วเว็บอัปเดตเองภายใน ~1 นาที** ไม่ต้อง build ไม่ต้องมี workflow
+
+ถ้าจะตั้งใหม่จากศูนย์:
 
 1. push โค้ดขึ้น branch `main`
-2. ไปที่รีโปบน GitHub → **Settings** → **Pages**
+2. รีโปบน GitHub → **Settings** → **Pages**
 3. **Source** เลือก **Deploy from a branch**
 4. **Branch** เลือก `main` และโฟลเดอร์ `/ (root)` → **Save**
-5. รอสักครู่ เว็บจะขึ้นที่ `https://<username>.github.io/<repo-name>/`
-
-ไม่ต้องมี GitHub Actions เพราะไม่มีขั้นตอน build — push แล้วเห็นผลเลย
 
 ### เรื่อง base path (สำคัญ)
 
-โปรเจกต์นี้ใช้ **relative path ทั้งหมด** (`./css/style.css`, `./js/app.js`) จึงทำงานได้ทั้ง
+โปรเจกต์นี้ใช้ **relative path ทั้งหมด** (`./css/style.css`, `./js/app.js`, `./sw.js`) จึงทำงานได้ทั้ง
 
 - `https://username.github.io/repo-name/` (รีโปทั่วไป)
 - `https://username.github.io/` (รีโปชื่อ `username.github.io`)
@@ -52,6 +97,7 @@ mkdir -p /tmp/pages-test/workout && cp -R . /tmp/pages-test/workout && npx serve
 โดยไม่ต้องแก้ค่า config ใด ๆ
 
 > **อย่าเปลี่ยนไปใช้ absolute path** เช่น `/css/style.css` เพราะจะพังทันทีเมื่อ deploy ใต้ subpath
+> รวมถึง `start_url` / `scope` ใน `manifest.webmanifest` และ path ใน `sw.js` ด้วย
 
 ### เรื่อง routing
 
@@ -87,27 +133,43 @@ mkdir -p /tmp/pages-test/workout && cp -R . /tmp/pages-test/workout && npx serve
 > ⚠️ **`id` ของท่าคือกุญแจที่ใช้ผูกประวัติ** ถ้าแก้ `id` ของท่าที่เคยบันทึกไว้
 > ประวัติเก่าของท่านั้นจะกลายเป็นข้อมูลกำพร้า — เปลี่ยนชื่อ (`name`) ได้ตามใจ แต่อย่าเปลี่ยน `id`
 
+`repsMax` มีผลกับแบดจ์ "พร้อมเพิ่มน้ำหนัก" โดยตรง — ถ้าครั้งล่าสุดทำครบทุกเซตที่ `repsMax` แบดจ์จะขึ้น
+
 เพิ่ม/ลบท่าหรือเพิ่มวันที่ 4 ได้โดยแก้ array `PROGRAM` ตรง ๆ (`accent` รับค่า `push` / `pull` / `legs`
 ถ้าเพิ่มโทนสีใหม่ ต้องเพิ่ม `[data-accent='…']` ใน `css/style.css` ด้วย)
+
+**เพิ่มไฟล์ใหม่ใน `js/` อย่าลืมเพิ่มชื่อไฟล์ในลิสต์ `ASSETS` ของ [`sw.js`](sw.js) และขยับเลข `CACHE` ด้วย**
+ไม่งั้นไฟล์นั้นจะไม่ถูก precache ตอนออฟไลน์
 
 ---
 
 ## โครงสร้างโปรเจกต์
 
 ```
-index.html          โครงหน้า + top bar + tab bar
-.nojekyll           ปิด Jekyll บน GitHub Pages
-css/style.css       ธีมทั้งหมด (dark เป็นค่าเริ่มต้น, light = โทนคอนกรีต)
+index.html              โครงหน้า + top bar + tab bar + ที่วางแถบจับเวลา
+manifest.webmanifest    PWA manifest (path เป็น relative ทั้งหมด)
+sw.js                   service worker — precache + offline
+.nojekyll               ปิด Jekyll บน GitHub Pages
+icons/                  ไอคอน PWA (SVG + PNG 192/512/maskable/apple-touch)
+css/style.css           ธีมทั้งหมด (dark เป็นค่าเริ่มต้น, light = โทนคอนกรีต)
 js/
-  program.js        ★ ข้อมูลตาราง — แก้ไฟล์นี้เพื่อเปลี่ยนโปรแกรม
-  types.js          JSDoc typedefs (ให้ editor ช่วย autocomplete โดยไม่ต้อง compile)
-  storage.js        wrapper ของ localStorage + import/export
-  format.js         แปลงวันที่/เวลาเป็นข้อความไทย
-  dom.js            helper สร้าง DOM (html`` template + escape อัตโนมัติ)
-  app.js            hash router + bootstrap + ธีม
+  program.js            ★ ข้อมูลตาราง — แก้ไฟล์นี้เพื่อเปลี่ยนโปรแกรม
+  types.js              JSDoc typedefs (ให้ editor ช่วย autocomplete โดยไม่ต้อง compile)
+  storage.js            อ่าน/เขียน localStorage + import/export
+  stats.js              คำนวณ PR, ปริมาตร, overload hint, สรุปสัปดาห์
+  timer.js              rest timer (คำนวณจาก timestamp) + เสียง + สั่น
+  chart.js              กราฟเส้น SVG ขนาดเล็ก
+  format.js             แปลงวันที่/เวลาเป็นข้อความไทย
+  dom.js                helper สร้าง DOM (html`` template + escape อัตโนมัติ)
+  theme.js              ธีม auto / dark / light
+  app.js                hash router + bootstrap
   views/
-    home.js         หน้าเลือกวัน
-    placeholder.js  หน้าที่ยังไม่ได้ทำในเฟสนี้
+    home.js             หน้าเลือกวัน
+    workout.js          หน้าเล่น + บันทึกเซต
+    history.js          ประวัติ + สรุปสัปดาห์
+    exercise.js         รายละเอียดรายท่า + กราฟ + PR
+    settings.js         ธีม / เสียง / import / export / reset
+    placeholder.js      หน้า 404
 ```
 
 ## ข้อมูลที่เก็บใน localStorage
@@ -122,20 +184,27 @@ key เดียวคือ `workout-tracker:v1` เก็บเป็น JSON 
       "id": "…",
       "dayId": "day1",
       "startedAt": 1754100000000,
-      "finishedAt": 1754103600000,
-      "entries": { "chest-press": [{ "weight": 40, "reps": 12, "done": true }] }
+      "finishedAt": 1754103600000,   // null = ยังเล่นค้างอยู่
+      "entries": {
+        "chest-press": [{ "weight": 40, "reps": 12, "done": true }]
+      }
     }
   ],
   "settings": { "theme": "auto", "sound": true, "vibrate": true }
 }
 ```
 
+- เซตที่ไม่ได้ติ๊ก `done` จะถูกตัดทิ้งตอนกด "จบการเล่น"
+- session ที่ค้างเกิน 12 ชั่วโมงจะถูกปิดให้อัตโนมัติ (ถ้ามีข้อมูล) หรือทิ้งไป (ถ้าว่างเปล่า)
+- ท่าที่ `isTimed` เก็บวินาทีไว้ในช่อง `reps`
+
 ---
 
 ## สถานะการพัฒนา
 
-- [x] **Phase 1** — scaffold, ข้อมูลตาราง, หน้า Home (แสดงเล่นล่าสุด + ไฮไลต์วันที่ควรเล่นต่อไป)
-- [ ] **Phase 2** — หน้า Workout: กรอกน้ำหนัก/ครั้ง, auto-fill จากครั้งก่อน, บันทึกลง localStorage
-- [ ] **Phase 3** — Rest timer (sticky bar, +15/−15/ข้าม, beep + สั่น, คำนวณจาก timestamp)
-- [ ] **Phase 4** — History, กราฟความก้าวหน้า, PR, แบดจ์ "พร้อมเพิ่มน้ำหนัก"
-- [ ] **Phase 5** — Import / Export / Reset
+- [x] **Phase 1** — scaffold, ข้อมูลตาราง, หน้า Home
+- [x] **Phase 2** — หน้า Workout: กรอกน้ำหนัก/ครั้ง, auto-fill, บันทึกลง localStorage
+- [x] **Phase 3** — Rest timer (sticky bar, +15/−15/ข้าม, beep + สั่น, คำนวณจาก timestamp)
+- [x] **Phase 4** — History, กราฟความก้าวหน้า, PR, แบดจ์ "พร้อมเพิ่มน้ำหนัก"
+- [x] **Phase 5** — Import / Export / Reset
+- [x] ฟีเจอร์เสริม — PWA + offline, Screen Wake Lock, สรุปสัปดาห์เทียบสัปดาห์ก่อน

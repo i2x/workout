@@ -4,70 +4,30 @@
  * — ถ้าใช้ History API แล้ว refresh ที่ /history จะได้ 404
  */
 import { renderHome } from './views/home.js';
-import { renderWorkoutStub, renderSoon, renderNotFound } from './views/placeholder.js';
-import { getSettings, setSetting } from './storage.js';
+import { renderWorkout } from './views/workout.js';
+import { renderHistory } from './views/history.js';
+import { renderExercise } from './views/exercise.js';
+import { renderSettings } from './views/settings.js';
+import { renderNotFound } from './views/placeholder.js';
+import { initTheme, cycleTheme } from './theme.js';
 import { $, $$ } from './dom.js';
 
-/* ---------- Theme ---------- */
-
-const THEME_ORDER = ['auto', 'dark', 'light'];
-const THEME_LABEL = { auto: 'อัตโนมัติ', dark: 'มืด', light: 'สว่าง' };
-const THEME_ICON = { auto: '◐', dark: '●', light: '○' };
-
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  const btn = $('#theme-toggle');
-  if (btn) {
-    btn.textContent = THEME_ICON[theme];
-    btn.setAttribute('aria-label', `ธีม: ${THEME_LABEL[theme]} (แตะเพื่อเปลี่ยน)`);
-    btn.title = `ธีม: ${THEME_LABEL[theme]}`;
-  }
-  // ให้แถบสถานะบนมือถือเข้ากับพื้นหลัง
-  const meta = $('meta[name="theme-color"]');
-  if (meta) {
-    meta.setAttribute(
-      'content',
-      getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#121110',
-    );
-  }
-}
-
-function cycleTheme() {
-  const current = getSettings().theme;
-  const next = THEME_ORDER[(THEME_ORDER.indexOf(current) + 1) % THEME_ORDER.length];
-  setSetting('theme', next);
-  applyTheme(next);
-}
-
-/* ---------- Routes ---------- */
-
 const ROUTES = [
-  { pattern: /^\/?$/, view: () => renderHome(), nav: 'home' },
-  {
-    pattern: /^\/workout\/([\w-]+)$/,
-    view: (m) => renderWorkoutStub({ dayId: m[1] }),
-    nav: 'home',
-  },
-  {
-    pattern: /^\/history$/,
-    view: () => renderSoon('ประวัติ', 'Phase 4 จะเพิ่มรายการ session ย้อนหลัง กราฟความก้าวหน้า สถิติ PR และแบดจ์ "พร้อมเพิ่มน้ำหนัก"'),
-    nav: 'history',
-  },
-  {
-    pattern: /^\/settings$/,
-    view: () => renderSoon('ตั้งค่า', 'Phase 5 จะเพิ่ม export / import ไฟล์ JSON และปุ่มล้างข้อมูลทั้งหมด'),
-    nav: 'settings',
-  },
+  { pattern: /^\/?$/, nav: 'home', view: () => renderHome() },
+  { pattern: /^\/workout\/([\w-]+)$/, nav: 'home', view: (m) => renderWorkout({ dayId: m[1] }) },
+  { pattern: /^\/history$/, nav: 'history', view: () => renderHistory() },
+  { pattern: /^\/exercise\/([\w-]+)$/, nav: 'history', view: (m) => renderExercise({ exerciseId: m[1] }) },
+  { pattern: /^\/settings$/, nav: 'settings', view: () => renderSettings() },
 ];
 
-function currentPath() {
-  const hash = location.hash.replace(/^#/, '');
-  return hash || '/';
-}
+let current = null;
 
 function router() {
-  const path = currentPath();
+  const path = location.hash.replace(/^#/, '') || '/';
   const outlet = $('#app');
+
+  // ให้ view เดิมเก็บกวาดตัวเอง (wake lock, timer ที่ค้าง ฯลฯ)
+  current?.__unmount?.();
 
   let node = null;
   let nav = null;
@@ -81,20 +41,29 @@ function router() {
   }
   if (!node) node = renderNotFound();
 
+  current = node;
   outlet.replaceChildren(node);
-  $$('.tabbar a').forEach((a) => {
-    a.setAttribute('aria-current', a.dataset.nav === nav ? 'page' : 'false');
-  });
+  $$('.tabbar a').forEach((a) =>
+    a.setAttribute('aria-current', a.dataset.nav === nav ? 'page' : 'false'),
+  );
   window.scrollTo(0, 0);
 }
 
-/* ---------- Bootstrap ---------- */
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (!location.protocol.startsWith('http')) return;
+  // path แบบ relative — scope จึงตรงกับ base path ของ GitHub Pages เสมอ
+  navigator.serviceWorker.register('./sw.js').catch((err) => {
+    console.warn('[sw] ลงทะเบียนไม่สำเร็จ', err);
+  });
+}
 
 function init() {
-  applyTheme(getSettings().theme);
+  initTheme();
   $('#theme-toggle').addEventListener('click', cycleTheme);
   window.addEventListener('hashchange', router);
   router();
+  registerServiceWorker();
   document.body.classList.add('ready');
 }
 

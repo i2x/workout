@@ -1,5 +1,6 @@
 import { PROGRAM, totalSets, estimateMinutes } from '../program.js';
-import { getLastPlayedMap, getSessions } from '../storage.js';
+import { getLastPlayedMap, getActiveSession, hasProgress } from '../storage.js';
+import { weekSummary, readyToOverload, fmtNum } from '../stats.js';
 import { relativeDay } from '../format.js';
 import { html, toElement } from '../dom.js';
 
@@ -15,26 +16,23 @@ function pickNextDay(lastPlayed) {
   ).id;
 }
 
-/** จำนวน session ในสัปดาห์นี้ (นับจากวันจันทร์) */
-function sessionsThisWeek() {
-  const now = new Date();
-  const dow = (now.getDay() + 6) % 7; // จันทร์ = 0
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - dow);
-  monday.setHours(0, 0, 0, 0);
-  return getSessions().filter((s) => s.finishedAt >= monday.getTime()).length;
-}
-
-function dayCard(day, index, lastPlayed, nextId) {
+function dayCard(day, index, lastPlayed, nextId, activeDayId) {
   const last = lastPlayed[day.id];
   const isNext = day.id === nextId;
+  const isActive = day.id === activeDayId;
+  const overloads = day.exercises.filter(readyToOverload).length;
+
   return html`
     <a class="card" data-accent="${day.accent}" href="#/workout/${day.id}"
        style="--i:${index}" aria-label="เริ่ม ${day.title}">
       <span class="card__ghost" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
       <div class="card__top">
         <span class="card__tag">${day.shortLabel}</span>
-        ${isNext ? html`<span class="card__next">ควรเล่นต่อไป</span>` : ''}
+        ${isActive
+          ? html`<span class="card__next card__next--active">● เล่นค้างอยู่</span>`
+          : isNext
+            ? html`<span class="card__next">ควรเล่นต่อไป</span>`
+            : ''}
       </div>
       <h2 class="card__title">Day ${index + 1}</h2>
       <p class="card__sub">${day.subtitle}</p>
@@ -46,8 +44,9 @@ function dayCard(day, index, lastPlayed, nextId) {
       <div class="card__foot">
         <span class="card__last">
           ${last ? html`เล่นล่าสุด <b>${relativeDay(last)}</b>` : 'ยังไม่เคยเล่น'}
+          ${overloads ? html` · <b class="up">▲ ${overloads} ท่าพร้อมเพิ่มน้ำหนัก</b>` : ''}
         </span>
-        <span class="card__go" aria-hidden="true">เริ่ม →</span>
+        <span class="card__go" aria-hidden="true">${isActive ? 'เล่นต่อ →' : 'เริ่ม →'}</span>
       </div>
     </a>
   `;
@@ -56,21 +55,37 @@ function dayCard(day, index, lastPlayed, nextId) {
 export function renderHome() {
   const lastPlayed = getLastPlayedMap();
   const nextId = pickNextDay(lastPlayed);
-  const week = sessionsThisWeek();
+  const week = weekSummary();
+  const active = getActiveSession();
+  const activeDayId = active && hasProgress(active) ? active.dayId : null;
 
   return toElement(html`
     <section class="view view--home">
       <header class="hero">
         <p class="hero__eyebrow">โปรแกรม 3 วัน / สัปดาห์</p>
         <h1 class="hero__title">เลือกวันที่<br />จะเล่นวันนี้</h1>
-        <p class="hero__stat">
-          <span class="hero__stat-num">${week}</span>
-          <span class="hero__stat-label">ครั้งในสัปดาห์นี้</span>
-        </p>
+        <div class="hero__stats">
+          <p class="hero__stat">
+            <span class="hero__stat-num">${week.count}</span>
+            <span class="hero__stat-label">ครั้งในสัปดาห์นี้</span>
+          </p>
+          ${week.volume
+            ? html`<p class="hero__stat">
+                <span class="hero__stat-num">${fmtNum(week.volume)}</span>
+                <span class="hero__stat-label">
+                  kg รวม${week.change != null
+                    ? html` <b data-trend="${week.change > 0 ? 'up' : week.change < 0 ? 'down' : 'flat'}">
+                        ${week.change > 0 ? '▲' : week.change < 0 ? '▼' : '—'}${Math.abs(week.change)}%
+                      </b>`
+                    : ''}
+                </span>
+              </p>`
+            : ''}
+        </div>
       </header>
 
       <div class="cards">
-        ${PROGRAM.map((d, i) => dayCard(d, i, lastPlayed, nextId))}
+        ${PROGRAM.map((d, i) => dayCard(d, i, lastPlayed, nextId, activeDayId))}
       </div>
     </section>
   `);
