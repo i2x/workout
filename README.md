@@ -1,5 +1,7 @@
 # Workout — ตารางออกกำลังกาย Push / Pull / Legs
 
+**เว็บจริง → https://i2x.github.io/workout/**
+
 เว็บแอป static สำหรับจดบันทึกการเล่นเวทในยิม ออกแบบให้ใช้มือเดียวบนมือถือ
 ข้อมูลทั้งหมดเก็บใน `localStorage` ของเครื่อง ไม่มี backend ไม่มี login
 
