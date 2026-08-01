@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="th" data-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Workout — ตารางออกกำลังกาย</title>
+    <meta name="description" content="ตารางออกกำลังกาย Push / Pull / Legs พร้อมบันทึกน้ำหนักและจับเวลาพัก ใช้งานออฟไลน์บนมือถือ" />
+    <meta name="theme-color" content="#121110" />
+    <meta name="color-scheme" content="dark light" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#/">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">WORKOUT<span class="brand__dot">.</span></span>
+      </a>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="สลับธีม">◐</button>
+    </header>
+
+    <main id="app"></main>
+
+    <nav class="tabbar" aria-label="เมนูหลัก">
+      <a href="#/" data-nav="home"><span class="tabbar__icon" aria-hidden="true">▤</span>ตาราง</a>
+      <a href="#/history" data-nav="history"><span class="tabbar__icon" aria-hidden="true">◴</span>ประวัติ</a>
+      <a href="#/settings" data-nav="settings"><span class="tabbar__icon" aria-hidden="true">⚙</span>ตั้งค่า</a>
+    </nav>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
