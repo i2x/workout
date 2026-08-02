@@ -9,12 +9,38 @@ const VERSION = 1;
 /** session ที่ค้างเกินเวลานี้ ถือว่าลืมกดจบ */
 const STALE_MS = 12 * 60 * 60 * 1000;
 
+/**
+ * ตารางเวอร์ชันแรกผูกกับ "เครื่อง" ตรง ๆ ต่อมาเปลี่ยนเป็น "รูปแบบการเคลื่อนไหว"
+ * แผนที่นี้ย้ายประวัติเก่ามาไว้ในช่องใหม่ พร้อมจำว่าตอนนั้นใช้อุปกรณ์อะไร
+ * @type {Record<string, [string, string]>}  oldId -> [newExerciseId, optionId]
+ */
+const LEGACY_IDS = {
+  'chest-press': ['chest-press', 'machine-chest-press'],
+  'shoulder-press': ['shoulder-press', 'machine-shoulder-press'],
+  'pec-deck': ['chest-fly', 'pec-deck'],
+  'lateral-raise': ['lateral-raise', 'machine-lateral-raise'],
+  'triceps-pushdown': ['triceps-ext', 'cable-pushdown'],
+  plank: ['plank', 'plank'],
+  'lat-pulldown': ['lat-pulldown', 'lat-pulldown'],
+  'chest-supported-row': ['row-horizontal', 'machine-row'],
+  'seated-cable-row': ['row-unilateral', 'cable-single-row'],
+  'face-pull': ['rear-delt', 'cable-face-pull'],
+  'cable-curl': ['biceps-curl', 'cable-curl'],
+  'knee-raise': ['knee-raise', 'captains-chair'],
+  'leg-press': ['squat-press', 'leg-press'],
+  'seated-leg-curl': ['hip-hinge', 'seated-leg-curl'],
+  'leg-extension': ['quad-iso', 'leg-extension'],
+  'back-extension': ['glute', 'back-extension'],
+  'calf-raise': ['calf', 'machine-calf-raise'],
+  'cable-crunch': ['ab-crunch', 'cable-crunch'],
+};
+
 /** @returns {import('./types.js').AppData} */
 function emptyData() {
   return {
     version: VERSION,
     sessions: [],
-    settings: { theme: 'auto', sound: true, vibrate: true },
+    settings: { theme: 'auto', sound: true, vibrate: true, equipment: {} },
   };
 }
 
@@ -77,14 +103,26 @@ function migrate(data) {
   const sessions = Array.isArray(data.sessions) ? data.sessions : [];
   return {
     version: VERSION,
-    sessions: sessions.filter((s) => s && s.dayId && s.startedAt).map((s) => ({
-      id: String(s.id || uid()),
-      dayId: String(s.dayId),
-      startedAt: Number(s.startedAt),
-      finishedAt: s.finishedAt ? Number(s.finishedAt) : null,
-      entries: s.entries && typeof s.entries === 'object' ? s.entries : {},
-    })),
-    settings: { ...base.settings, ...(data.settings || {}) },
+    sessions: sessions.filter((s) => s && s.dayId && s.startedAt).map((s) => {
+      const entries = {};
+      const variants = { ...(s.variants || {}) };
+      for (const [exId, sets] of Object.entries(
+        s.entries && typeof s.entries === 'object' ? s.entries : {},
+      )) {
+        const [newId, optionId] = LEGACY_IDS[exId] || [exId, null];
+        entries[newId] = sets;
+        if (optionId && !variants[newId]) variants[newId] = optionId;
+      }
+      return {
+        id: String(s.id || uid()),
+        dayId: String(s.dayId),
+        startedAt: Number(s.startedAt),
+        finishedAt: s.finishedAt ? Number(s.finishedAt) : null,
+        entries,
+        variants,
+      };
+    }),
+    settings: { ...base.settings, ...(data.settings || {}), equipment: { ...(data.settings?.equipment || {}) } },
   };
 }
 
@@ -101,6 +139,21 @@ export function getSettings() {
 export function setSetting(key, value) {
   return update((d) => {
     d.settings[key] = value;
+  });
+}
+
+/* ---------- อุปกรณ์ที่เลือกไว้ของแต่ละท่า ---------- */
+
+/** @returns {Record<string,string>} exerciseId -> optionId */
+export function getEquipment() {
+  return load().settings.equipment || {};
+}
+
+/** จำอุปกรณ์ที่เลือกไว้ ครั้งหน้าจะขึ้นตัวนี้ให้เลย */
+export function setEquipment(exerciseId, optionId) {
+  return update((d) => {
+    d.settings.equipment ||= {};
+    d.settings.equipment[exerciseId] = optionId;
   });
 }
 
@@ -168,9 +221,18 @@ export function getOrCreateSession(dayId) {
       (s) => s.finishedAt || s.dayId === dayId || hasProgress(s),
     );
 
-    const fresh = { id: uid(), dayId, startedAt: now, finishedAt: null, entries: {} };
+    const fresh = { id: uid(), dayId, startedAt: now, finishedAt: null, entries: {}, variants: {} };
     d.sessions.push(fresh);
     return fresh;
+  });
+}
+
+/** จำว่า session นี้ใช้อุปกรณ์อะไรกับท่านั้น (แสดงในประวัติ) */
+export function setSessionVariant(sessionId, exerciseId, optionId) {
+  return update((d) => {
+    const s = d.sessions.find((x) => x.id === sessionId);
+    if (!s) return;
+    (s.variants ||= {})[exerciseId] = optionId;
   });
 }
 
@@ -193,8 +255,12 @@ export function finishSession(sessionId) {
     if (!s) return null;
     for (const [exId, sets] of Object.entries(s.entries)) {
       const kept = sets.filter((set) => set && set.done);
-      if (kept.length) s.entries[exId] = kept;
-      else delete s.entries[exId];
+      if (kept.length) {
+        s.entries[exId] = kept;
+      } else {
+        delete s.entries[exId];
+        if (s.variants) delete s.variants[exId];
+      }
     }
     if (!Object.keys(s.entries).length) {
       d.sessions = d.sessions.filter((x) => x.id !== sessionId);

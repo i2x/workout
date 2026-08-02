@@ -1,7 +1,7 @@
 import { getSessions, deleteSession } from '../storage.js';
 import { sessionStats, weekSummary, fmtNum, fmtWeight } from '../stats.js';
 import { relativeDay, shortDate, clockTime } from '../format.js';
-import { PROGRAM } from '../program.js';
+import { PROGRAM, getOption } from '../program.js';
 import { html, toElement } from '../dom.js';
 
 function summaryCard() {
@@ -57,9 +57,10 @@ function sessionRow(session) {
             const ex = day?.exercises.find((e) => e.id === exId);
             const done = list.filter((s) => s?.done);
             if (!done.length) return '';
+            const opt = ex ? getOption(ex, (session.variants || {})[exId]) : null;
             return html`
               <div class="hrow">
-                <a class="hrow__name" href="#/exercise/${exId}">${ex?.name || exId}</a>
+                <a class="hrow__name" href="#/exercise/${exId}">${opt?.name || exId}</a>
                 <span class="hrow__sets">
                   ${done.map(
                     (s) => html`<span class="chip">
@@ -104,7 +105,10 @@ export function renderHistory() {
             <li data-accent="${day.accent}">
               <p class="exlinks__day">${day.shortLabel}</p>
               ${day.exercises.map(
-                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">${ex.name} <span>→</span></a>`,
+                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">
+                  ${ex.pattern}
+                  <span>${ex.options.length} อุปกรณ์ →</span>
+                </a>`,
               )}
             </li>
           `,

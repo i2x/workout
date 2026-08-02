@@ -1,10 +1,13 @@
-import { getDay, repsLabel, totalSets } from '../program.js';
+import { getDay, repsLabel, totalSets, getOption, GEAR } from '../program.js';
 import {
   getOrCreateSession,
   saveSet,
   finishSession,
   deleteSession,
   getSession,
+  getEquipment,
+  setEquipment,
+  setSessionVariant,
 } from '../storage.js';
 import { previousSets, readyToOverload, fmtNum, fmtWeight } from '../stats.js';
 import { html, toElement } from '../dom.js';
@@ -91,30 +94,55 @@ function setRow(ex, index, saved, prev) {
   `;
 }
 
-function exerciseCard(ex, index, session) {
+/** รายการอุปกรณ์ให้เลือก — ยิมไหนไม่มีเครื่องนี้ก็สลับได้โดยประวัติยังนับรวมช่องเดิม */
+function swapPanel(ex, selectedId) {
+  return html`
+    <div class="swap" hidden>
+      <p class="swap__head">เลือกอุปกรณ์ที่ยิมคุณมี — ประวัติยังนับรวมเป็นช่องเดียวกัน</p>
+      ${ex.options.map(
+        (o) => html`
+          <button class="swap__opt" type="button" data-act="pick" data-option="${o.id}"
+                  aria-pressed="${o.id === selectedId ? 'true' : 'false'}">
+            <span class="swap__name">${o.name}<small>${o.nameTh || ''}</small></span>
+            <span class="swap__gear">${GEAR[o.gear] || o.gear}</span>
+          </button>
+        `,
+      )}
+    </div>
+  `;
+}
+
+function exerciseCard(ex, index, session, selectedId) {
   const saved = (session.entries || {})[ex.id] || [];
   const prev = previousSets(ex.id, session.id);
   const overload = readyToOverload(ex);
+  const opt = getOption(ex, selectedId);
 
   return html`
     <li class="ex" data-ex="${ex.id}" style="--i:${index}">
       <div class="ex__head">
         <span class="ex__idx">${String(index + 1).padStart(2, '0')}</span>
         <div class="ex__title">
-          <a class="ex__name" href="#/exercise/${ex.id}">${ex.name}</a>
+          <a class="ex__name" href="#/exercise/${ex.id}">${opt.name}</a>
           <span class="ex__meta">${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ</span>
         </div>
-        ${ex.link
-          ? html`<a class="ex__video" href="${ex.link}" target="_blank" rel="noopener noreferrer"
-                    aria-label="ดูวิธีทำท่า ${ex.name}">▶</a>`
-          : ''}
+        <a class="ex__video" href="${opt.link || '#'}" target="_blank" rel="noopener noreferrer"
+           aria-label="ดูวิธีทำท่า ${opt.name}">▶</a>
       </div>
-      ${overload ? html`<span class="badge badge--overload">▲ พร้อมเพิ่มน้ำหนัก</span>` : ''}
-      ${ex.nameTh || ex.alt
-        ? html`<p class="ex__note">
-            ${ex.nameTh || ''}${ex.alt ? html` · <em>${ex.alt}</em>` : ''}
-          </p>`
-        : ''}
+
+      <div class="ex__sub">
+        <button class="swap__btn" type="button" data-act="swap" aria-expanded="false">
+          <span class="swap__badge">${GEAR[opt.gear] || opt.gear}</span>
+          ⇄ เปลี่ยนอุปกรณ์
+          <small>(${ex.options.length} แบบ)</small>
+        </button>
+        ${overload ? html`<span class="badge badge--overload">▲ พร้อมเพิ่มน้ำหนัก</span>` : ''}
+      </div>
+
+      ${swapPanel(ex, opt.id)}
+
+      <p class="ex__note"><b>${ex.pattern}</b>${opt.nameTh ? html` · ${opt.nameTh}` : ''}</p>
+
       <div class="sets">
         ${Array.from({ length: ex.sets }, (_, i) => setRow(ex, i, saved[i], prev))}
       </div>
@@ -128,6 +156,7 @@ export function renderWorkout(params) {
 
   const session = getOrCreateSession(day.id);
   const goal = totalSets(day);
+  const equipment = { ...getEquipment(), ...(session.variants || {}) };
 
   const view = toElement(html`
     <section class="view view--workout" data-accent="${day.accent}">
@@ -144,7 +173,7 @@ export function renderWorkout(params) {
       </div>
 
       <ol class="ex-list">
-        ${day.exercises.map((ex, i) => exerciseCard(ex, i, session))}
+        ${day.exercises.map((ex, i) => exerciseCard(ex, i, session, equipment[ex.id]))}
       </ol>
 
       <div class="finish">
@@ -190,6 +219,26 @@ export function renderWorkout(params) {
     return { weight: get('weight'), reps: get('reps') };
   }
 
+  /** เปลี่ยนอุปกรณ์แล้วอัปเดตชื่อ/ลิงก์/ป้ายในการ์ดนั้น โดยไม่วาดใหม่ทั้งหน้า */
+  function applyOption(card, ex, optionId) {
+    const opt = getOption(ex, optionId);
+    equipment[ex.id] = opt.id;
+    setEquipment(ex.id, opt.id);
+    setSessionVariant(session.id, ex.id, opt.id);
+
+    card.querySelector('.ex__name').textContent = opt.name;
+    card.querySelector('.ex__video').href = opt.link || '#';
+    card.querySelector('.swap__badge').textContent = GEAR[opt.gear] || opt.gear;
+    card.querySelector('.ex__note').innerHTML = '';
+    card.querySelector('.ex__note').append(
+      Object.assign(document.createElement('b'), { textContent: ex.pattern }),
+      document.createTextNode(opt.nameTh ? ` · ${opt.nameTh}` : ''),
+    );
+    card.querySelectorAll('[data-option]').forEach((b) =>
+      b.setAttribute('aria-pressed', String(b.dataset.option === opt.id)),
+    );
+  }
+
   /* ---------- Events ---------- */
 
   let saveTimer = 0;
@@ -208,25 +257,44 @@ export function renderWorkout(params) {
   view.addEventListener('click', (ev) => {
     const btn = ev.target.closest('[data-act]');
     if (!btn) return;
+    const act = btn.dataset.act;
+    const card = btn.closest('.ex');
+    const ex = card ? day.exercises.find((e) => e.id === card.dataset.ex) : null;
 
-    if (btn.dataset.act === 'toggle') {
+    if (act === 'swap') {
+      const panel = card.querySelector('.swap');
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      return;
+    }
+
+    if (act === 'pick') {
+      applyOption(card, ex, btn.dataset.option);
+      card.querySelector('.swap').hidden = true;
+      card.querySelector('[data-act="swap"]').setAttribute('aria-expanded', 'false');
+      return;
+    }
+
+    if (act === 'toggle') {
       const row = btn.closest('.set');
-      const exCard = row.closest('.ex');
-      const ex = day.exercises.find((e) => e.id === exCard.dataset.ex);
       const done = btn.getAttribute('aria-pressed') !== 'true';
 
+      const opt = getOption(ex, equipment[ex.id]);
       timer.primeAudio(); // ใช้จังหวะที่ผู้ใช้แตะจอเพื่อปลดล็อกเสียง
       saveSet(session.id, ex.id, Number(row.dataset.i), { ...readSet(row), done });
+      // บันทึกอุปกรณ์ที่ใช้ไว้ด้วย แม้ผู้ใช้จะไม่ได้กดเปลี่ยนเอง
+      if (done) setSessionVariant(session.id, ex.id, opt.id);
       btn.setAttribute('aria-pressed', String(done));
       row.classList.toggle('is-done', done);
       refreshProgress();
 
-      if (done) timer.start(ex.restSec, `พักหลัง ${ex.name}`);
+      if (done) timer.start(ex.restSec, `พักหลัง ${opt.name}`);
       else if (timer.isRunning()) timer.stop();
       return;
     }
 
-    if (btn.dataset.act === 'finish') {
+    if (act === 'finish') {
       const saved = finishSession(session.id);
       timer.stop();
       if (!saved) {
@@ -238,7 +306,7 @@ export function renderWorkout(params) {
       return;
     }
 
-    if (btn.dataset.act === 'discard') {
+    if (act === 'discard') {
       if (!confirm('ทิ้งการเล่นครั้งนี้ทั้งหมด? ข้อมูลที่กรอกไว้จะหายไป')) return;
       deleteSession(session.id);
       timer.stop();

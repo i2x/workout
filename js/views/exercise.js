@@ -1,9 +1,20 @@
-import { getExercise, repsLabel } from '../program.js';
+import { getExercise, repsLabel, getOption, GEAR } from '../program.js';
+import { getEquipment, setEquipment, getSessions } from '../storage.js';
 import { exerciseHistory, personalRecord, readyToOverload, fmtNum, fmtWeight } from '../stats.js';
 import { shortDate, relativeDay } from '../format.js';
 import { lineChart } from '../chart.js';
 import { html, toElement } from '../dom.js';
 import { renderNotFound } from './placeholder.js';
+
+/** อุปกรณ์ที่ใช้จริงในแต่ละครั้ง — เอาไว้โชว์ข้างบันทึกย้อนหลัง */
+function variantMap(exerciseId) {
+  const map = {};
+  for (const s of getSessions()) {
+    const v = (s.variants || {})[exerciseId];
+    if (v) map[s.id] = v;
+  }
+  return map;
+}
 
 export function renderExercise(params) {
   const found = getExercise(params.exerciseId);
@@ -13,24 +24,23 @@ export function renderExercise(params) {
   const history = exerciseHistory(ex.id, ex.isTimed);
   const pr = personalRecord(ex.id, ex.isTimed);
   const overload = readyToOverload(ex);
+  const selected = getOption(ex, getEquipment()[ex.id]);
+  const usedBy = variantMap(ex.id);
 
   const topUnit = ex.isTimed ? ' วิ' : ' kg';
   const topLabel = ex.isTimed ? 'เวลาที่ค้างได้นานสุด' : 'น้ำหนักสูงสุดต่อเซต';
   const volLabel = ex.isTimed ? 'เวลารวมต่อครั้ง' : 'ปริมาตรรวมต่อครั้ง (kg)';
 
-  return toElement(html`
+  const view = toElement(html`
     <section class="view" data-accent="${day.accent}">
       <header class="page-head">
         <a class="back" href="#/history">← ประวัติ</a>
         <span class="page-head__tag">${day.shortLabel}</span>
-        <h1 class="page-head__title">${ex.name}</h1>
+        <h1 class="page-head__title page-head__title--th">${ex.pattern}</h1>
         <p class="page-head__sub">
-          ${ex.nameTh ? `${ex.nameTh} · ` : ''}${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ
+          ${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ · ${ex.options.length} อุปกรณ์ให้เลือก
         </p>
         <div class="page-head__actions">
-          ${ex.link
-            ? html`<a class="btn btn--ghost btn--sm" href="${ex.link}" target="_blank" rel="noopener noreferrer">▶ ดูวิธีทำท่า</a>`
-            : ''}
           <a class="btn btn--ghost btn--sm" href="#/workout/${day.id}">ไปเล่น ${day.shortLabel}</a>
         </div>
       </header>
@@ -43,7 +53,28 @@ export function renderExercise(params) {
           </p>`
         : ''}
 
-      ${ex.alt ? html`<p class="note note--sm">เครื่องทดแทน: <b>${ex.alt}</b></p>` : ''}
+      <h2 class="section-title">อุปกรณ์ที่ใช้ได้</h2>
+      <p class="note note--sm">
+        เลือกอันที่ยิมคุณมี — ทุกอันนับรวมเป็นช่องเดียวกัน กราฟและ PR จึงต่อเนื่องแม้เปลี่ยนอุปกรณ์
+        (น้ำหนักของแต่ละอุปกรณ์เทียบกันตรง ๆ ไม่ได้ ให้ดูแนวโน้มภายในอุปกรณ์เดียวกันเป็นหลัก)
+      </p>
+      <div class="swap swap--page">
+        ${ex.options.map(
+          (o) => html`
+            <div class="swap__row">
+              <button class="swap__opt" type="button" data-option="${o.id}"
+                      aria-pressed="${o.id === selected.id ? 'true' : 'false'}">
+                <span class="swap__name">${o.name}<small>${o.nameTh || ''}</small></span>
+                <span class="swap__gear">${GEAR[o.gear] || o.gear}</span>
+              </button>
+              ${o.link
+                ? html`<a class="swap__video" href="${o.link}" target="_blank" rel="noopener noreferrer"
+                          aria-label="ดูวิธีทำท่า ${o.name}">▶</a>`
+                : ''}
+            </div>
+          `,
+        )}
+      </div>
 
       ${pr
         ? html`
@@ -82,13 +113,15 @@ export function renderExercise(params) {
 
             <h2 class="section-title">บันทึกย้อนหลัง</h2>
             <ul class="reclist">
-              ${[...history].reverse().map(
-                (r) => html`
+              ${[...history].reverse().map((r) => {
+                const used = usedBy[r.sessionId];
+                return html`
                   <li class="reclist__row">
                     <span class="reclist__date">
                       <b>${shortDate(r.at)}</b><small>${relativeDay(r.at)}</small>
                     </span>
                     <span class="reclist__sets">
+                      ${used ? html`<span class="chip chip--gear">${getOption(ex, used).name}</span>` : ''}
                       ${r.sets.map(
                         (s) => html`<span class="chip">
                           ${ex.isTimed ? `${fmtNum(s.reps)} วิ` : `${fmtWeight(s.weight)}×${fmtNum(s.reps)}`}
@@ -96,11 +129,22 @@ export function renderExercise(params) {
                       )}
                     </span>
                   </li>
-                `,
-              )}
+                `;
+              })}
             </ul>
           `
         : ''}
     </section>
   `);
+
+  view.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-option]');
+    if (!btn) return;
+    setEquipment(ex.id, btn.dataset.option);
+    view.querySelectorAll('[data-option]').forEach((b) =>
+      b.setAttribute('aria-pressed', String(b.dataset.option === btn.dataset.option)),
+    );
+  });
+
+  return view;
 }
