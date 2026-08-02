@@ -2,11 +2,11 @@
  * ตารางออกกำลังกาย 3 วัน (Push / Pull / Legs)
  * แก้ไฟล์นี้ไฟล์เดียวเพื่อเปลี่ยนตาราง — ส่วนอื่นของแอปอ่านจากที่นี่ทั้งหมด
  *
- * จัดตามอุปกรณ์ที่ยิมยืนยันว่ามี:
- *   เครื่องเฉพาะส่วน — Chest Press, Lat Pulldown, Leg Press, Leg Extension, Leg Curl
- *   เคเบิล 1 เสา + ดัมเบล + ม้านั่ง
- * ท่าที่ต้องใช้เครื่องนอกลิสต์นี้ (Pec Fly, Rear Delt, Preacher Curl ฯลฯ)
- * ถูกย้ายไปเป็นตัวสำรอง — เลือกได้ถ้าไปเจอว่าสาขามี
+ * ใช้เครื่องกับเคเบิลเท่านั้น ไม่มีดัมเบล
+ *   เครื่องเฉพาะส่วนที่ยิมมี — Chest Press, Lat Pulldown, Leg Press, Leg Extension, Leg Curl
+ *   ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
+ * nameTh ของท่าเคเบิลบอกวิธีตั้งเครื่องไว้ด้วย (รอกสูงเท่าไหร่ ใส่ด้ามอะไร)
+ * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Pec Fly, Rear Delt ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
  *
  * part = ชื่อกล้ามเนื้อแบบที่ป้ายบนเครื่องเขียน (CHEST / LAT / TRICEPS)
  * ใช้เดินหาเครื่องในยิมได้เลยโดยไม่ต้องอ่านชื่อท่า
@@ -38,9 +38,17 @@ export const PROGRAM = [
         part: { en: 'CHEST', th: 'อก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
-          { id: 'db-bench', name: 'Dumbbell Bench Press', nameTh: 'นอนม้านั่งราบ ดันดัมเบลขึ้น', gear: 'db', link: MW },
-          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน', gear: 'smith', link: MW },
+          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง — ปรับเบาะให้ด้ามจับอยู่ระดับกลางอก', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
+          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
+        ],
+      },
+      {
+        id: 'chest-fly',
+        part: { en: 'CHEST', th: 'อก (หนีบเข้า)' },
+        sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
+        options: [
+          { id: 'cable-crossover', name: 'Cable Chest Fly', nameTh: 'ตั้งรอกทั้งสองข้างระดับไหล่ · ด้ามเดี่ยว · หนีบมือเข้าหากันหน้าอก', gear: 'cable', link: MW },
+          { id: 'pec-deck', name: 'Pec Fly Machine', nameTh: 'หนีบอกด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -48,19 +56,9 @@ export const PROGRAM = [
         part: { en: 'SHOULDER', th: 'ไหล่' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'db-shoulder-press', name: 'Dumbbell Shoulder Press', nameTh: 'นั่งพิงพนักตั้ง ดันดัมเบลขึ้นเหนือหัว', gear: 'db', link: MW },
-          { id: 'machine-shoulder-press', name: 'Shoulder Press Machine', nameTh: 'ดันไหล่ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-          { id: 'smith-shoulder-press', name: 'Smith Machine Shoulder Press', nameTh: 'ดันไหล่บนสมิธแมชชีน', gear: 'smith', link: MW },
-        ],
-      },
-      {
-        id: 'chest-fly',
-        part: { en: 'CHEST', th: 'อกส่วนบน' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
-        options: [
-          { id: 'incline-db-press', name: 'Incline Dumbbell Press', nameTh: 'ปรับเบาะเอียง 30° ดันดัมเบลขึ้น', gear: 'db', link: MW },
-          { id: 'cable-crossover', name: 'Cable Chest Fly', nameTh: 'หนีบเคเบิลเข้าหากลางอก', gear: 'cable', link: MW },
-          { id: 'pec-deck', name: 'Pec Fly Machine', nameTh: 'หนีบอกด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'machine-shoulder-press', name: 'Shoulder Press Machine', nameTh: 'ดันไหล่ด้วยเครื่อง — ปรับเบาะให้ด้ามอยู่ระดับหู', gear: 'machine', link: MW },
+          { id: 'smith-shoulder-press', name: 'Smith Machine Shoulder Press', nameTh: 'นั่งใต้สมิธแมชชีน ดันบาร์ขึ้นเหนือหัว', gear: 'smith', link: MW },
+          { id: 'cable-shoulder-press', name: 'Cable Shoulder Press', nameTh: 'รอกล่างสุดสองข้าง · ด้ามเดี่ยว · ยืนกลางเสา ดันขึ้นเหนือหัว', gear: 'cable', link: MW },
         ],
       },
       {
@@ -68,8 +66,8 @@ export const PROGRAM = [
         part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'db-lateral-raise', name: 'Dumbbell Lateral Raise', nameTh: 'ยืนถือดัมเบลเบา ๆ กางแขนออกข้างระดับไหล่', gear: 'db', link: MW },
-          { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'กางไหล่ด้วยเคเบิล ทีละข้าง', gear: 'cable', link: MW },
+          { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'รอกล่างสุด · ด้ามเดี่ยว · ยืนข้างเสา กางแขนขึ้นระดับไหล่ ทีละข้าง', gear: 'cable', link: MW },
+          { id: 'machine-lateral-raise', name: 'Lateral Raise Machine', nameTh: 'กางไหล่ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -77,9 +75,8 @@ export const PROGRAM = [
         part: { en: 'TRICEPS', th: 'ไตรเซป' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
         options: [
-          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'เกี่ยวบาร์ที่รอกบนสุด กดลงจนแขนตรง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
-          { id: 'bench-dip', name: 'Bench Dip', nameTh: 'มือยันขอบม้านั่ง ย่อตัวลง-ดันขึ้น', gear: 'body', link: MW },
-          { id: 'db-overhead-ext', name: 'Dumbbell Overhead Extension', nameTh: 'ยกดัมเบลเหนือหัว งอศอกลงหลัง', gear: 'db', link: MW },
+          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'รอกบนสุด · ใส่บาร์ตรงหรือเชือก · ศอกแนบลำตัว กดลงจนแขนตรง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
+          { id: 'machine-triceps', name: 'Triceps Extension Machine', nameTh: 'เหยียดไตรเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -88,7 +85,7 @@ export const PROGRAM = [
         sets: 3, repsMin: 30, repsMax: 30, restSec: 45,
         isTimed: true,
         options: [
-          { id: 'plank', name: 'Plank', nameTh: 'แพลงก์ค้าง', gear: 'body', link: MW },
+          { id: 'plank', name: 'Plank', nameTh: 'แพลงก์ค้างบนเสื่อ — ไม่ต้องใช้อุปกรณ์', gear: 'body', link: MW },
         ],
       },
     ],
@@ -106,7 +103,7 @@ export const PROGRAM = [
         part: { en: 'LAT', th: 'ปีก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์ลงมาที่หน้าอก', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
+          { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์ลงมาที่หน้าอก — ปรับแป้นล็อกต้นขาให้แน่น', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
         ],
       },
       {
@@ -114,9 +111,8 @@ export const PROGRAM = [
         part: { en: 'MID BACK', th: 'กลางหลัง' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'seated-cable-row', name: 'Seated Cable Row', nameTh: 'นั่งที่รอกล่าง เท้ายันแป้น ดึงเข้าท้อง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
+          { id: 'seated-cable-row', name: 'Seated Cable Row', nameTh: 'เบาะที่รอกล่าง · เท้ายันแป้น · ดึงด้ามเข้าหาท้อง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
           { id: 'machine-row', name: 'Seated Row Machine', nameTh: 'โรว์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-          { id: 'db-one-arm-row', name: 'One-Arm Dumbbell Row', nameTh: 'เข่ายันม้านั่ง ดึงดัมเบลข้างเดียว', gear: 'db', link: MW },
         ],
       },
       {
@@ -124,8 +120,8 @@ export const PROGRAM = [
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'db-rear-fly', name: 'Seated Rear Delt Fly', nameTh: 'นั่งก้มตัวลงบนต้นขา กางดัมเบลออกข้าง', gear: 'db', link: MW },
-          { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'ดึงเคเบิลเข้าหาหน้า', gear: 'cable', link: MW },
+          { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
+          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'กางไหล่หลังด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -133,8 +129,7 @@ export const PROGRAM = [
         part: { en: 'BICEPS', th: 'ไบเซป' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
         options: [
-          { id: 'db-curl', name: 'Dumbbell Curl', nameTh: 'ยืนถือดัมเบล ม้วนขึ้นหาไหล่', gear: 'db', link: MW },
-          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'ม้วนไบเซปที่รอกล่าง', gear: 'cable', link: MW },
+          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'รอกล่างสุด · ใส่บาร์ตรง · ศอกแนบลำตัว ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
           { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
@@ -143,7 +138,7 @@ export const PROGRAM = [
         part: { en: 'ABS', th: 'ท้องล่าง' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 60,
         options: [
-          { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนหงายยกขาขึ้น-ลง', gear: 'body', link: MW },
+          { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนหงายบนเสื่อ ยกขาขึ้น-ลง — ไม่ต้องใช้อุปกรณ์', gear: 'body', link: MW },
           { id: 'captains-chair', name: "Captain's Chair", nameTh: 'ยกเข่าบนเก้าอี้กัปตัน ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
@@ -162,9 +157,8 @@ export const PROGRAM = [
         part: { en: 'QUAD + GLUTE', th: 'ขาหน้า + ก้น' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 120,
         options: [
-          { id: 'leg-press', name: 'Leg Press', nameTh: 'ดันขาด้วยเครื่อง', gear: 'machine', link: MW },
-          { id: 'goblet-squat', name: 'Goblet Squat', nameTh: 'อุ้มดัมเบลไว้หน้าอก ย่อลง-ยืนขึ้น', gear: 'db', link: MW },
-          { id: 'smith-squat', name: 'Smith Machine Squat', nameTh: 'สควอทบนสมิธแมชชีน', gear: 'smith', link: MW },
+          { id: 'leg-press', name: 'Leg Press', nameTh: 'ดันขาด้วยเครื่อง — วางเท้ากลางแป้น กว้างเท่าสะโพก', gear: 'machine', link: MW },
+          { id: 'smith-squat', name: 'Smith Machine Squat', nameTh: 'สควอทบนสมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
         ],
       },
       {
@@ -172,8 +166,7 @@ export const PROGRAM = [
         part: { en: 'HAMSTRING', th: 'ขาหลัง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 90,
         options: [
-          { id: 'seated-leg-curl', name: 'Leg Curl', nameTh: 'งอขาหลังด้วยเครื่อง', gear: 'machine', link: MW },
-          { id: 'db-rdl', name: 'Dumbbell Romanian Deadlift', nameTh: 'ถือดัมเบล ก้มตัวขาเกือบตึง', gear: 'db', link: MW },
+          { id: 'seated-leg-curl', name: 'Leg Curl', nameTh: 'งอขาหลังด้วยเครื่อง — ปรับแป้นให้อยู่เหนือส้นเท้า', gear: 'machine', link: MW },
         ],
       },
       {
@@ -181,8 +174,7 @@ export const PROGRAM = [
         part: { en: 'QUAD', th: 'ขาหน้า' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 75,
         options: [
-          { id: 'leg-extension', name: 'Leg Extension', nameTh: 'เหยียดขาหน้าด้วยเครื่อง', gear: 'machine', link: MW },
-          { id: 'walking-lunge', name: 'Dumbbell Walking Lunge', nameTh: 'ถือดัมเบล เดินลันจ์', gear: 'db', link: MW },
+          { id: 'leg-extension', name: 'Leg Extension', nameTh: 'เหยียดขาหน้าด้วยเครื่อง — ปรับแป้นให้อยู่เหนือข้อเท้า', gear: 'machine', link: MW },
         ],
       },
       {
@@ -190,7 +182,8 @@ export const PROGRAM = [
         part: { en: 'GLUTE', th: 'ก้น' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
         options: [
-          { id: 'glute-bridge', name: 'Dumbbell Glute Bridge', nameTh: 'นอนหงาย วางดัมเบลบนสะโพก ยกสะโพกขึ้น', gear: 'db', link: MW },
+          { id: 'cable-kickback', name: 'Cable Glute Kickback', nameTh: 'รอกล่างสุด · คล้องข้อเท้า · เตะขาไปข้างหลัง ทีละข้าง', gear: 'cable', link: MW },
+          { id: 'cable-pull-through', name: 'Cable Pull-Through', nameTh: 'รอกล่างสุด · ใส่เชือก · หันหลังให้เสา ก้มตัวแล้วดันสะโพกไปหน้า', gear: 'cable', link: MW },
           { id: 'back-extension', name: 'Back Extension', nameTh: 'แอ่นหลังบนเบาะ 45° ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
@@ -199,8 +192,8 @@ export const PROGRAM = [
         part: { en: 'CALF', th: 'น่อง' },
         sets: 3, repsMin: 15, repsMax: 20, restSec: 45,
         options: [
-          { id: 'db-calf-raise', name: 'Dumbbell Calf Raise', nameTh: 'ยืนถือดัมเบล เขย่งส้นขึ้นสุด', gear: 'db', link: MW },
-          { id: 'leg-press-calf', name: 'Leg Press Calf Raise', nameTh: 'ใช้เครื่องดันขา ดันด้วยปลายเท้า', gear: 'machine', link: MW },
+          { id: 'leg-press-calf', name: 'Leg Press Calf Raise', nameTh: 'ใช้เครื่องดันขา · วางปลายเท้าที่ขอบล่างของแป้น · ดันด้วยปลายเท้า', gear: 'machine', link: MW },
+          { id: 'machine-calf-raise', name: 'Calf Raise Machine', nameTh: 'เขย่งน่องด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -208,8 +201,8 @@ export const PROGRAM = [
         part: { en: 'ABS', th: 'ท้องบน' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'weighted-crunch', name: 'Weighted Crunch', nameTh: 'นอนหงายกอดดัมเบล ม้วนตัวขึ้น', gear: 'db', link: MW },
-          { id: 'cable-crunch', name: 'Cable Crunch', nameTh: 'คุกเข่าหน้าเคเบิล ม้วนตัวลง', gear: 'cable', link: MW },
+          { id: 'cable-crunch', name: 'Cable Crunch', nameTh: 'รอกบนสุด · ใส่เชือก · คุกเข่าหันหน้าเข้าเสา ม้วนตัวลง', gear: 'cable', link: MW },
+          { id: 'ab-crunch-machine', name: 'Ab Crunch Machine', nameTh: 'ครันช์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
     ],
