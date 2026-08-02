@@ -108,7 +108,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
           { id: 'lat-pulldown', name: 'Lat Pulldown Machine', nameTh: 'ดึงบาร์หน้าลงมา', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
-          { id: 'assisted-pullup', name: 'Assisted Pull-up Machine', nameTh: 'ดึงข้อแบบมีตัวช่วย', gear: 'machine', link: MW },
         ],
       },
       {
@@ -116,18 +115,18 @@ export const PROGRAM = [
         part: { en: 'MID BACK', th: 'กลางหลัง' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'machine-row', name: 'Seated Row Machine', nameTh: 'โรว์ด้วยเครื่อง (มีเบาะพยุงอก)', gear: 'machine', link: MW },
-          { id: 'seated-cable-row', name: 'Seated Row (Low Row)', nameTh: 'ดึงเคเบิลนั่งพาย', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
+          { id: 'seated-cable-row', name: 'Seated Row (Low Row Station)', nameTh: 'นั่งพายที่สถานีรอกล่าง — เบาะตายตัว ไม่ต้องปรับอะไร', gear: 'machine', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
+          { id: 'machine-row', name: 'Seated Row Machine (มีเบาะพยุงอก)', nameTh: 'โรว์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
         id: 'row-unilateral',
-        part: { en: 'LAT', th: 'ปีก (ทีละข้าง)' },
+        part: { en: 'LAT', th: 'ปีก (ดึงตัวขึ้น)' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 75,
         options: [
+          { id: 'assisted-pullup-row', name: 'Assisted Pull-Up Machine', nameTh: 'ดึงข้อแบบมีตัวช่วย (คุกเข่าบนแป้น)', gear: 'machine', link: MW },
+          { id: 'lat-pulldown-close', name: 'Close-Grip Lat Pulldown', nameTh: 'ดึงบาร์แบบจับแคบ (เครื่องเดิม เปลี่ยนที่จับ)', gear: 'machine', link: MW },
           { id: 'db-one-arm-row', name: 'One-Arm Dumbbell Row', nameTh: 'โรว์ดัมเบลข้างเดียว (เข่ายันม้านั่ง)', gear: 'db', link: MW },
-          { id: 'assisted-pullup-row', name: 'Assisted Pull-Up Machine', nameTh: 'ดึงข้อแบบมีตัวช่วย', gear: 'machine', link: MW },
-          { id: 'cable-single-row', name: 'Single-Arm Row (Cable)', nameTh: 'ดึงเคเบิลทีละข้าง', gear: 'cable', link: MW },
         ],
       },
       {
@@ -135,8 +134,8 @@ export const PROGRAM = [
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
         sets: 3, repsMin: 15, repsMax: 15, restSec: 45,
         options: [
-          { id: 'reverse-pec-deck', name: 'Rear Delt Machine (Reverse Fly)', nameTh: 'กางไหล่หลังด้วยเครื่อง', gear: 'machine', link: MW },
-          { id: 'db-rear-fly', name: 'Dumbbell Rear Delt Fly', nameTh: 'กางไหล่หลังด้วยดัมเบล (ก้มตัว)', gear: 'db', link: MW },
+          { id: 'db-rear-fly', name: 'Chest-Supported Rear Delt Fly', nameTh: 'นอนคว่ำบนเบาะเอียง กางดัมเบลออกข้าง', gear: 'db', link: MW },
+          { id: 'reverse-pec-deck', name: 'Rear Delt Machine (Reverse Fly)', nameTh: 'กางไหล่หลังด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
           { id: 'cable-face-pull', name: 'Rear Delt Face Pull (Cable)', nameTh: 'ดึงเคเบิลเข้าหน้า', gear: 'cable', link: MW },
         ],
       },
