@@ -105,7 +105,10 @@ export function renderHistory() {
             <li data-accent="${day.accent}">
               <p class="exlinks__day">${day.shortLabel}</p>
               ${day.exercises.map(
-                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">${mainName(ex)} <span>→</span></a>`,
+                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">
+                  <b class="exlinks__part">${ex.part.en}</b> ${mainName(ex)}
+                  <span>→</span>
+                </a>`,
               )}
             </li>
           `,

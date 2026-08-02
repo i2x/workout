@@ -578,6 +578,19 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
 .ex__head { display: flex; align-items: flex-start; gap: 10px; }
 .ex__idx { font-family: var(--font-display); font-size: 18px; color: var(--accent); opacity: 0.85; }
 .ex__title { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ex__part {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.ex__part small { font-size: 11px; font-weight: 500; letter-spacing: 0; color: var(--text-dim); }
+
 .ex__name { font-size: 16px; font-weight: 600; line-height: 1.25; }
 .ex__name:active { color: var(--accent); }
 .ex__meta { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
@@ -960,6 +973,13 @@ body.has-timer { padding-bottom: calc(var(--tabbar-h) + 74px + env(safe-area-ins
 }
 
 .exlinks__item span { color: var(--text-dim); }
+.exlinks__part {
+  display: inline-block;
+  min-width: 84px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
 
 /* ---------- หน้ารายละเอียดท่า ---------- */
 

@@ -35,7 +35,7 @@ export function renderExercise(params) {
     <section class="view" data-accent="${day.accent}">
       <header class="page-head">
         <a class="back" href="#/history">← ประวัติ</a>
-        <span class="page-head__tag">${day.shortLabel}</span>
+        <span class="page-head__tag">${day.shortLabel} · ${ex.part.en} — ${ex.part.th}</span>
         <h1 class="page-head__title">${mainName(ex)}</h1>
         <p class="page-head__sub">
           ${ex.options[0].nameTh ? `${ex.options[0].nameTh} · ` : ''}${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ

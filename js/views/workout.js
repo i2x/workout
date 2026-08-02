@@ -122,6 +122,7 @@ function exerciseCard(ex, index, session, selectedId) {
       <div class="ex__head">
         <span class="ex__idx">${String(index + 1).padStart(2, '0')}</span>
         <div class="ex__title">
+          <span class="ex__part">${ex.part.en}<small>${ex.part.th}</small></span>
           <a class="ex__name" href="#/exercise/${ex.id}">${opt.name}</a>
           <span class="ex__meta">${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ</span>
         </div>
