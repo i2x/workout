@@ -383,15 +383,6 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
 
 .page-head__sub { margin: 6px 0 0; font-size: 13px; color: var(--text-dim); }
 
-/* หัวข้อภาษาไทยใช้ฟอนต์ body — Anton ไม่มีสระ/วรรณยุกต์ไทย */
-.page-head__title--th {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-transform: none;
-}
 
 /* ---------- Preview list (ชั่วคราวใน Phase 1) ---------- */
 
@@ -604,9 +595,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
   border-radius: 50%;
 }
 
-.ex__note { margin: 8px 0 0; font-size: 12px; color: var(--text-dim); }
-.ex__note b { color: var(--text); font-weight: 600; }
-.ex__note em { font-style: normal; color: var(--text); opacity: 0.75; }
+.ex__note { margin: 0; font-size: 12px; color: var(--text-dim); }
 
 /* ---------- เลือกอุปกรณ์ ---------- */
 
@@ -616,8 +605,8 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  min-height: 34px;
-  padding: 5px 11px 5px 5px;
+  min-height: 32px;
+  padding: 4px 12px;
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
@@ -632,7 +621,8 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
 .swap__btn[aria-expanded='true'] { color: var(--text); border-color: var(--line-strong); }
 
 .swap__badge {
-  padding: 3px 8px;
+  flex: none;
+  padding: 3px 9px;
   font-size: 11px;
   color: var(--on-accent);
   background: var(--accent);

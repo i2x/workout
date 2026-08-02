@@ -2,22 +2,21 @@
  * ชนิดข้อมูลกลางของแอป — ใช้ JSDoc เพื่อให้ editor ช่วย autocomplete
  * โดยไม่ต้องมี build step (ไม่ต้องคอมไพล์ TypeScript)
  *
- * @typedef {Object} ExerciseOption   ทางเลือกอุปกรณ์ของช่องหนึ่ง
+ * @typedef {Object} ExerciseOption   ท่า/เครื่องที่ใช้ทำช่องนั้นได้
  * @property {string} id
  * @property {string} name            ชื่ออังกฤษ (ตรงกับป้ายบนเครื่อง/ท่าในยิม)
  * @property {string} [nameTh]        ชื่อไทย
- * @property {'db'|'bb'|'ez'|'cable'|'machine'|'smith'|'body'} gear
+ * @property {'machine'|'cable'|'smith'|'db'|'bb'|'body'} gear
  * @property {string} [link]          ลิงก์วิดีโอ/คู่มือสอนท่า
  *
- * @typedef {Object} Exercise         หนึ่งช่องในตาราง = หนึ่งรูปแบบการเคลื่อนไหว
+ * @typedef {Object} Exercise         หนึ่งท่าในตาราง
  * @property {string} id              กุญแจที่ประวัติผูกอยู่ — ห้ามเปลี่ยน
- * @property {string} pattern         ชื่อรูปแบบการเคลื่อนไหว เช่น "ดันอกแนวราบ"
  * @property {number} sets
  * @property {number} repsMin
  * @property {number} repsMax
  * @property {number} restSec         ถ้าเป็นช่วง ใช้ค่ากลาง
  * @property {boolean} [isTimed]      true = นับเป็นวินาที ไม่ใช่จำนวนครั้ง
- * @property {ExerciseOption[]} options  ตัวแรกคือค่าเริ่มต้น (อุปกรณ์ที่หาง่ายที่สุด)
+ * @property {ExerciseOption[]} options  ตัวแรก = ท่าหลัก ที่เหลือคือตัวสำรอง
  *
  * @typedef {Object} Day
  * @property {string} id

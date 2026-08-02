@@ -94,11 +94,10 @@ function setRow(ex, index, saved, prev) {
   `;
 }
 
-/** รายการอุปกรณ์ให้เลือก — ยิมไหนไม่มีเครื่องนี้ก็สลับได้โดยประวัติยังนับรวมช่องเดิม */
+/** ตัวสำรอง เผื่อเครื่องไม่ว่างหรือสาขานั้นไม่มี — ประวัติยังนับรวมเป็นท่าเดียวกัน */
 function swapPanel(ex, selectedId) {
   return html`
     <div class="swap" hidden>
-      <p class="swap__head">เลือกอุปกรณ์ที่ยิมคุณมี — ประวัติยังนับรวมเป็นช่องเดียวกัน</p>
       ${ex.options.map(
         (o) => html`
           <button class="swap__opt" type="button" data-act="pick" data-option="${o.id}"
@@ -131,17 +130,17 @@ function exerciseCard(ex, index, session, selectedId) {
       </div>
 
       <div class="ex__sub">
-        <button class="swap__btn" type="button" data-act="swap" aria-expanded="false">
-          <span class="swap__badge">${GEAR[opt.gear] || opt.gear}</span>
-          ⇄ เปลี่ยนอุปกรณ์
-          <small>(${ex.options.length} แบบ)</small>
-        </button>
+        <span class="swap__badge">${GEAR[opt.gear] || opt.gear}</span>
+        <span class="ex__note">${opt.nameTh || ''}</span>
+        ${ex.options.length > 1
+          ? html`<button class="swap__btn" type="button" data-act="swap" aria-expanded="false">
+              ⇄ ใช้ตัวอื่นแทน
+            </button>`
+          : ''}
         ${overload ? html`<span class="badge badge--overload">▲ พร้อมเพิ่มน้ำหนัก</span>` : ''}
       </div>
 
-      ${swapPanel(ex, opt.id)}
-
-      <p class="ex__note"><b>${ex.pattern}</b>${opt.nameTh ? html` · ${opt.nameTh}` : ''}</p>
+      ${ex.options.length > 1 ? swapPanel(ex, opt.id) : ''}
 
       <div class="sets">
         ${Array.from({ length: ex.sets }, (_, i) => setRow(ex, i, saved[i], prev))}
@@ -229,11 +228,7 @@ export function renderWorkout(params) {
     card.querySelector('.ex__name').textContent = opt.name;
     card.querySelector('.ex__video').href = opt.link || '#';
     card.querySelector('.swap__badge').textContent = GEAR[opt.gear] || opt.gear;
-    card.querySelector('.ex__note').innerHTML = '';
-    card.querySelector('.ex__note').append(
-      Object.assign(document.createElement('b'), { textContent: ex.pattern }),
-      document.createTextNode(opt.nameTh ? ` · ${opt.nameTh}` : ''),
-    );
+    card.querySelector('.ex__note').textContent = opt.nameTh || '';
     card.querySelectorAll('[data-option]').forEach((b) =>
       b.setAttribute('aria-pressed', String(b.dataset.option === opt.id)),
     );

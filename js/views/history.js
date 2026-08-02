@@ -1,7 +1,7 @@
 import { getSessions, deleteSession } from '../storage.js';
 import { sessionStats, weekSummary, fmtNum, fmtWeight } from '../stats.js';
 import { relativeDay, shortDate, clockTime } from '../format.js';
-import { PROGRAM, getOption } from '../program.js';
+import { PROGRAM, getOption, mainName } from '../program.js';
 import { html, toElement } from '../dom.js';
 
 function summaryCard() {
@@ -105,10 +105,7 @@ export function renderHistory() {
             <li data-accent="${day.accent}">
               <p class="exlinks__day">${day.shortLabel}</p>
               ${day.exercises.map(
-                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">
-                  ${ex.pattern}
-                  <span>${ex.options.length} อุปกรณ์ →</span>
-                </a>`,
+                (ex) => html`<a class="exlinks__item" href="#/exercise/${ex.id}">${mainName(ex)} <span>→</span></a>`,
               )}
             </li>
           `,

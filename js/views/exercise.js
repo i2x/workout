@@ -1,4 +1,4 @@
-import { getExercise, repsLabel, getOption, GEAR } from '../program.js';
+import { getExercise, repsLabel, getOption, mainName, GEAR } from '../program.js';
 import { getEquipment, setEquipment, getSessions } from '../storage.js';
 import { exerciseHistory, personalRecord, readyToOverload, fmtNum, fmtWeight } from '../stats.js';
 import { shortDate, relativeDay } from '../format.js';
@@ -36,9 +36,9 @@ export function renderExercise(params) {
       <header class="page-head">
         <a class="back" href="#/history">← ประวัติ</a>
         <span class="page-head__tag">${day.shortLabel}</span>
-        <h1 class="page-head__title page-head__title--th">${ex.pattern}</h1>
+        <h1 class="page-head__title">${mainName(ex)}</h1>
         <p class="page-head__sub">
-          ${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ · ${ex.options.length} อุปกรณ์ให้เลือก
+          ${ex.options[0].nameTh ? `${ex.options[0].nameTh} · ` : ''}${ex.sets} × ${repsLabel(ex)} · พัก ${ex.restSec} วิ
         </p>
         <div class="page-head__actions">
           <a class="btn btn--ghost btn--sm" href="#/workout/${day.id}">ไปเล่น ${day.shortLabel}</a>
@@ -53,11 +53,10 @@ export function renderExercise(params) {
           </p>`
         : ''}
 
-      <h2 class="section-title">อุปกรณ์ที่ใช้ได้</h2>
-      <p class="note note--sm">
-        เลือกอันที่ยิมคุณมี — ทุกอันนับรวมเป็นช่องเดียวกัน กราฟและ PR จึงต่อเนื่องแม้เปลี่ยนอุปกรณ์
-        (น้ำหนักของแต่ละอุปกรณ์เทียบกันตรง ๆ ไม่ได้ ให้ดูแนวโน้มภายในอุปกรณ์เดียวกันเป็นหลัก)
-      </p>
+      ${ex.options.length > 1
+        ? html`<h2 class="section-title">ถ้าเครื่องไม่ว่างหรือยิมไม่มี</h2>
+            <p class="note note--sm">ใช้ตัวไหนก็ได้ ประวัติยังนับรวมเป็นท่าเดียวกัน</p>`
+        : ''}
       <div class="swap swap--page">
         ${ex.options.map(
           (o) => html`
