@@ -23,7 +23,8 @@ const LEGACY_IDS = {
   plank: ['plank', 'plank'],
   'lat-pulldown': ['lat-pulldown', 'lat-pulldown'],
   'chest-supported-row': ['row-horizontal', 'machine-row'],
-  'seated-cable-row': ['row-unilateral', 'cable-single-row'],
+  'seated-cable-row': ['row-horizontal', 'seated-cable-row'],
+  'row-unilateral': ['row-horizontal', 'seated-cable-row'],
   'face-pull': ['rear-delt', 'cable-face-pull'],
   'cable-curl': ['biceps-curl', 'cable-curl'],
   'knee-raise': ['knee-raise', 'captains-chair'],
@@ -110,7 +111,8 @@ function migrate(data) {
         s.entries && typeof s.entries === 'object' ? s.entries : {},
       )) {
         const [newId, optionId] = LEGACY_IDS[exId] || [exId, null];
-        entries[newId] = sets;
+        // สองช่องเก่าอาจถูกยุบมาเป็นช่องเดียว — ต่อเซตเข้าด้วยกัน ไม่ใช่เขียนทับ
+        entries[newId] = entries[newId] ? [...entries[newId], ...sets] : sets;
         if (optionId && !variants[newId]) variants[newId] = optionId;
       }
       return {

@@ -107,7 +107,7 @@ export const PROGRAM = [
         part: { en: 'LAT', th: 'ปีก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'lat-pulldown', name: 'Lat Pulldown Machine', nameTh: 'ดึงบาร์หน้าลงมา', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
+          { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์หน้าลงมา', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
         ],
       },
       {
@@ -115,28 +115,17 @@ export const PROGRAM = [
         part: { en: 'MID BACK', th: 'กลางหลัง' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'seated-cable-row', name: 'Seated Row (Low Row Station)', nameTh: 'นั่งพายที่สถานีรอกล่าง — เบาะตายตัว ไม่ต้องปรับอะไร', gear: 'machine', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
-          { id: 'machine-row', name: 'Seated Row Machine (มีเบาะพยุงอก)', nameTh: 'โรว์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-        ],
-      },
-      {
-        id: 'row-unilateral',
-        part: { en: 'LAT', th: 'ปีก (ดึงตัวขึ้น)' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 75,
-        options: [
-          { id: 'assisted-pullup-row', name: 'Assisted Pull-Up Machine', nameTh: 'ดึงข้อแบบมีตัวช่วย (คุกเข่าบนแป้น)', gear: 'machine', link: MW },
-          { id: 'lat-pulldown-close', name: 'Close-Grip Lat Pulldown', nameTh: 'ดึงบาร์แบบจับแคบ (เครื่องเดิม เปลี่ยนที่จับ)', gear: 'machine', link: MW },
-          { id: 'db-one-arm-row', name: 'One-Arm Dumbbell Row', nameTh: 'โรว์ดัมเบลข้างเดียว (เข่ายันม้านั่ง)', gear: 'db', link: MW },
+          { id: 'seated-cable-row', name: 'Seated Row', nameTh: 'นั่งพายเข้าหาท้อง', gear: 'machine', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
+          { id: 'machine-row', name: 'Seated Row Machine', nameTh: 'โรว์ด้วยเครื่องแบบมีเบาะพยุงอก', gear: 'machine', link: MW },
         ],
       },
       {
         id: 'rear-delt',
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
-        sets: 3, repsMin: 15, repsMax: 15, restSec: 45,
+        sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'db-rear-fly', name: 'Chest-Supported Rear Delt Fly', nameTh: 'นอนคว่ำบนเบาะเอียง กางดัมเบลออกข้าง', gear: 'db', link: MW },
-          { id: 'reverse-pec-deck', name: 'Rear Delt Machine (Reverse Fly)', nameTh: 'กางไหล่หลังด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-          { id: 'cable-face-pull', name: 'Rear Delt Face Pull (Cable)', nameTh: 'ดึงเคเบิลเข้าหน้า', gear: 'cable', link: MW },
+          { id: 'db-rear-fly', name: 'Seated Rear Delt Fly', nameTh: 'นั่งก้มตัว กางดัมเบลออกข้าง', gear: 'db', link: MW },
+          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'กางไหล่หลังด้วยเครื่อง', gear: 'machine', link: MW },
         ],
       },
       {
@@ -144,9 +133,8 @@ export const PROGRAM = [
         part: { en: 'BICEPS', th: 'ไบเซป' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
         options: [
-          { id: 'preacher-curl', name: 'Biceps Curl Machine (Preacher)', nameTh: 'ม้วนไบเซปด้วยเครื่อง', gear: 'machine', link: MW },
+          { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง', gear: 'machine', link: MW },
           { id: 'db-curl', name: 'Dumbbell Curl', nameTh: 'ม้วนไบเซปด้วยดัมเบล', gear: 'db', link: MW },
-          { id: 'cable-curl', name: 'Biceps Curl (Cable)', nameTh: 'ม้วนไบเซปด้วยเคเบิล', gear: 'cable', link: MW },
         ],
       },
       {
@@ -155,7 +143,7 @@ export const PROGRAM = [
         sets: 3, repsMin: 10, repsMax: 12, restSec: 60,
         options: [
           { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนยกขา', gear: 'body', link: MW },
-          { id: 'captains-chair', name: "Captain's Chair (Ab Raise)", nameTh: 'ยกเข่าบนเก้าอี้กัปตัน', gear: 'machine', link: MW },
+          { id: 'captains-chair', name: "Captain's Chair", nameTh: 'ยกเข่าบนเก้าอี้กัปตัน', gear: 'machine', link: MW },
         ],
       },
     ],
