@@ -3,8 +3,8 @@
  * แก้ไฟล์นี้ไฟล์เดียวเพื่อเปลี่ยนตาราง — ส่วนอื่นของแอปอ่านจากที่นี่ทั้งหมด
  *
  * ใช้เครื่องกับเคเบิลเท่านั้น ไม่มีดัมเบล
- *   เครื่องเฉพาะส่วนที่ยิมมี — Chest Press, Lat Pulldown, Leg Press, Leg Extension, Leg Curl
- *   ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
+ *   Day 3 เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง — Leg Press, Leg Extension, Leg Curl, Glute, Calf Raise
+ *   Day 1/2 ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
  * nameTh ของท่าเคเบิลบอกวิธีตั้งเครื่องไว้ด้วย (รอกสูงเท่าไหร่ ใส่ด้ามอะไร)
  * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Pec Fly, Rear Delt ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
  *
@@ -150,7 +150,7 @@ export const PROGRAM = [
   {
     id: 'day3',
     title: 'Day 3 — Legs',
-    subtitle: 'ขา / ก้น + ท้อง',
+    subtitle: 'ขา / ก้น / น่อง',
     accent: 'legs',
     shortLabel: 'LEGS',
     exercises: [
@@ -160,15 +160,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 10, repsMax: 12, restSec: 120,
         options: [
           { id: 'leg-press', name: 'Leg Press', nameTh: 'ดันขาด้วยเครื่อง — วางเท้ากลางแป้น กว้างเท่าสะโพก', gear: 'machine', link: MW },
-          { id: 'smith-squat', name: 'Smith Machine Squat', nameTh: 'สควอทบนสมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
-        ],
-      },
-      {
-        id: 'hip-hinge',
-        part: { en: 'HAMSTRING', th: 'ขาหลัง' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 90,
-        options: [
-          { id: 'seated-leg-curl', name: 'Leg Curl', nameTh: 'งอขาหลังด้วยเครื่อง — ปรับแป้นให้อยู่เหนือส้นเท้า', gear: 'machine', link: MW },
         ],
       },
       {
@@ -180,13 +171,19 @@ export const PROGRAM = [
         ],
       },
       {
+        id: 'hip-hinge',
+        part: { en: 'HAMSTRING', th: 'ขาหลัง' },
+        sets: 3, repsMin: 12, repsMax: 15, restSec: 90,
+        options: [
+          { id: 'seated-leg-curl', name: 'Leg Curl', nameTh: 'งอขาหลังด้วยเครื่อง — ปรับแป้นให้อยู่เหนือส้นเท้า', gear: 'machine', link: MW },
+        ],
+      },
+      {
         id: 'glute',
         part: { en: 'GLUTE', th: 'ก้น' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
         options: [
-          { id: 'cable-kickback', name: 'Cable Glute Kickback', nameTh: 'รอกล่างสุด · คล้องข้อเท้า · เตะขาไปข้างหลัง ทีละข้าง', gear: 'cable', link: MW },
-          { id: 'cable-pull-through', name: 'Cable Pull-Through', nameTh: 'รอกล่างสุด · ใส่เชือก · หันหลังให้เสา ก้มตัวแล้วดันสะโพกไปหน้า', gear: 'cable', link: MW },
-          { id: 'back-extension', name: 'Back Extension', nameTh: 'แอ่นหลังบนเบาะ 45° ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'glute-machine', name: 'Glute', nameTh: 'เครื่องเตะก้น — เท้าดันแป้น เตะไปข้างหลังทีละข้าง', gear: 'machine', link: MW },
         ],
       },
       {
@@ -194,17 +191,7 @@ export const PROGRAM = [
         part: { en: 'CALF', th: 'น่อง' },
         sets: 3, repsMin: 15, repsMax: 20, restSec: 45,
         options: [
-          { id: 'leg-press-calf', name: 'Leg Press Calf Raise', nameTh: 'ใช้เครื่องดันขา · วางปลายเท้าที่ขอบล่างของแป้น · ดันด้วยปลายเท้า', gear: 'machine', link: MW },
-          { id: 'machine-calf-raise', name: 'Calf Raise Machine', nameTh: 'เขย่งน่องด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-        ],
-      },
-      {
-        id: 'ab-crunch',
-        part: { en: 'ABS', th: 'ท้องบน' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
-        options: [
-          { id: 'cable-crunch', name: 'Cable Crunch', nameTh: 'รอกบนสุด · ใส่เชือก · คุกเข่าหันหน้าเข้าเสา ม้วนตัวลง', gear: 'cable', link: MW },
-          { id: 'ab-crunch-machine', name: 'Ab Crunch Machine', nameTh: 'ครันช์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'machine-calf-raise', name: 'Calf Raise', nameTh: 'เขย่งน่องด้วยเครื่อง — ไม่มีเครื่องน่องก็ใช้ Leg Press วางปลายเท้าที่ขอบล่างของแป้น', gear: 'machine', link: MW },
         ],
       },
     ],
