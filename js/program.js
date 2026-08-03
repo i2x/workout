@@ -138,8 +138,10 @@ export const PROGRAM = [
         part: { en: 'ABS', th: 'ท้องล่าง' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 60,
         options: [
-          { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนหงายบนเสื่อ ยกขาขึ้น-ลง — ไม่ต้องใช้อุปกรณ์', gear: 'body', link: MW },
-          { id: 'captains-chair', name: "Captain's Chair", nameTh: 'ยกเข่าบนเก้าอี้กัปตัน ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'hanging-leg-raise', name: 'Hanging Leg Raise', nameTh: 'ห้อยบาร์โหน · ยกขาเหยียดตรงขึ้นระดับสะโพก · ลงช้า ๆ ไม่แกว่งตัว', gear: 'body', link: MW },
+          { id: 'hanging-knee-raise', name: 'Hanging Knee Raise', nameTh: 'ห้อยบาร์โหน · งอเข่ายกขึ้นหาอก — ขั้นก่อนเหยียดขาตรง', gear: 'body', link: MW },
+          { id: 'captains-chair', name: "Captain's Chair", nameTh: 'เก้าอี้กัปตัน · วางแขนบนแป้น พิงหลัง ยกขาขึ้น — เบากว่าห้อยบาร์ ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนหงายบนเสื่อ ยกขาขึ้น-ลง — ตัวสำรองวันที่ห้อยบาร์ไม่ไหว', gear: 'body', link: MW },
         ],
       },
     ],
