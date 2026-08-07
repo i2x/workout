@@ -13,6 +13,10 @@
  *   Lateral Raise กับ Seated Row ห้ามตัด เป็นท่าเดียวที่คุมไหล่ข้างกับกลางหลัง
  *   ท่าที่ทำแล้ว "ไม่รู้สึกโดน" แก้ที่คำแนะนำใน nameTh ก่อน อย่าเพิ่งตัดท่าทิ้ง
  *
+ * ลำดับท่าในแต่ละวันเรียงตามจุดที่ต้องไปยืน ไม่ใช่ตามความสำคัญของกล้ามเนื้อ
+ * ท่าที่ใช้เสา/เครื่องเดียวกันวางติดกัน จะได้ตั้งครั้งเดียวเล่นรวด ไม่ต้องเดินกลับ
+ * เวลาเพิ่มหรือสลับท่า ให้เช็คว่าไม่ได้แทรกเครื่องอื่นคั่นกลางสองท่าที่ใช้เสาเดียวกัน
+ *
  * part = ชื่อกล้ามเนื้อแบบที่ป้ายบนเครื่องเขียน (CHEST / LAT / TRICEPS)
  * ใช้เดินหาเครื่องในยิมได้เลยโดยไม่ต้องอ่านชื่อท่า
  */
@@ -112,21 +116,21 @@ export const PROGRAM = [
         ],
       },
       {
+        id: 'biceps-curl',
+        part: { en: 'BICEPS', th: 'ไบเซป' },
+        sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
+        options: [
+          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ · เปลี่ยนเป็นบาร์ตรง · ศอกแนบลำตัว ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
+          { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
+        ],
+      },
+      {
         id: 'rear-delt',
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
           { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'เครื่องเดียวกับ Pec Fly แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
           { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
-        ],
-      },
-      {
-        id: 'biceps-curl',
-        part: { en: 'BICEPS', th: 'ไบเซป' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
-        options: [
-          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'รอกล่างสุด · ใส่บาร์ตรง · ศอกแนบลำตัว ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
-          { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
