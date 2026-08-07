@@ -6,7 +6,12 @@
  *   Day 3 เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง — Leg Press, Leg Extension, Leg Curl, Glute, Calf Raise
  *   Day 1/2 ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
  * nameTh ของท่าเคเบิลบอกวิธีตั้งเครื่องไว้ด้วย (รอกสูงเท่าไหร่ ใส่ด้ามอะไร)
- * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Pec Fly, Rear Delt ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
+ * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Rear Delt, Preacher Curl ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
+ *
+ * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
+ *   Chest Fly ตัดออกแล้ว เพราะ Chest Press คุมอกอยู่แล้ว
+ *   Lateral Raise กับ Seated Row ห้ามตัด เป็นท่าเดียวที่คุมไหล่ข้างกับกลางหลัง
+ *   ท่าที่ทำแล้ว "ไม่รู้สึกโดน" แก้ที่คำแนะนำใน nameTh ก่อน อย่าเพิ่งตัดท่าทิ้ง
  *
  * part = ชื่อกล้ามเนื้อแบบที่ป้ายบนเครื่องเขียน (CHEST / LAT / TRICEPS)
  * ใช้เดินหาเครื่องในยิมได้เลยโดยไม่ต้องอ่านชื่อท่า
@@ -43,15 +48,6 @@ export const PROGRAM = [
         ],
       },
       {
-        id: 'chest-fly',
-        part: { en: 'CHEST', th: 'อก (หนีบเข้า)' },
-        sets: 3, repsMin: 12, repsMax: 15, restSec: 60,
-        options: [
-          { id: 'cable-crossover', name: 'Cable Chest Fly', nameTh: 'ตั้งรอกทั้งสองข้างระดับไหล่ · ด้ามเดี่ยว · หนีบมือเข้าหากันหน้าอก', gear: 'cable', link: MW },
-          { id: 'pec-deck', name: 'Pec Fly Machine', nameTh: 'หนีบอกด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-        ],
-      },
-      {
         id: 'shoulder-press',
         part: { en: 'SHOULDER', th: 'ไหล่' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
@@ -66,8 +62,8 @@ export const PROGRAM = [
         part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'รอกล่างสุด · ด้ามเดี่ยว · ยืนข้างเสา กางแขนขึ้นระดับไหล่ ทีละข้าง', gear: 'cable', link: MW },
-          { id: 'machine-lateral-raise', name: 'Lateral Raise Machine', nameTh: 'กางไหล่ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'รอกล่างสุด · ด้ามเดี่ยว · ยืนข้างเสาทีละข้าง · เอาเบาไว้ ห้ามยักบ่า ยกแค่ระดับไหล่', gear: 'cable', link: MW },
+          { id: 'machine-lateral-raise', name: 'Lateral Raise Machine', nameTh: 'กางไหล่ด้วยเครื่อง ถ้าสาขามี — รู้สึกง่ายกว่าเคเบิลเพราะเครื่องบังคับทางให้', gear: 'machine', link: MW },
         ],
       },
       {
@@ -120,8 +116,8 @@ export const PROGRAM = [
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
         sets: 3, repsMin: 12, repsMax: 15, restSec: 45,
         options: [
-          { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
-          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'กางไหล่หลังด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
+          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'เครื่องเดียวกับ Pec Fly แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
+          { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
         ],
       },
       {
