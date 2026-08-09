@@ -47,8 +47,10 @@ export const PROGRAM = [
         part: { en: 'CHEST', th: 'อก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง — ปรับเบาะให้ด้ามจับอยู่ระดับกลางอก', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
-          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
+          { id: 'incline-chest-press', name: 'Incline Chest Press', nameTh: 'ดันอกเอียงด้วยเครื่อง — เบาะเอียง 30–45° เท่านั้น ชันกว่านี้กลายเป็นเล่นไหล่หน้า · ไม่มีเครื่องเอียงให้กดสลับไปตัวราบ', gear: 'machine', link: MW },
+          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง (เบาะราบ) — ปรับเบาะให้ด้ามจับอยู่ระดับกลางอก', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
+          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ตั้งเบาะเอียง 30–45° ใต้สมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
+          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน เบาะราบ ถ้าสาขามี', gear: 'smith', link: MW },
         ],
       },
       {
@@ -103,7 +105,7 @@ export const PROGRAM = [
         part: { en: 'LAT', th: 'ปีก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์ลงมาที่หน้าอก — ปรับแป้นล็อกต้นขาให้แน่น', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
+          { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์ลงมาที่หน้าอก — ปรับแป้นล็อกต้นขาให้แน่น · กดสะบักลงก่อนแล้วค่อยงอศอก ไม่งั้นไบเซปกับบ่าทำงานแทนปีก · ปล่อยขึ้นช้า 3 วิ', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
         ],
       },
       {
