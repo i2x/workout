@@ -4,7 +4,7 @@
  */
 
 const KEY = 'workout-tracker:v1';
-const VERSION = 1;
+const VERSION = 2;
 
 /** session ที่ค้างเกินเวลานี้ ถือว่าลืมกดจบ */
 const STALE_MS = 12 * 60 * 60 * 1000;
@@ -102,6 +102,11 @@ function migrate(data) {
   const base = emptyData();
   if (!data || typeof data !== 'object') return base;
   const sessions = Array.isArray(data.sessions) ? data.sessions : [];
+  const equipment = { ...(data.settings?.equipment || {}) };
+  // v2: เป้าคืออกบน — ถ้าค่าที่จำไว้เป็นตัวเบาะราบ ให้กลับไปตัวเอียง (ครั้งเดียว เลือกใหม่ทีหลังได้)
+  if ((Number(data.version) || 1) < 2 && ['machine-chest-press', 'smith-bench'].includes(equipment['chest-press'])) {
+    equipment['chest-press'] = 'incline-chest-press';
+  }
   return {
     version: VERSION,
     sessions: sessions.filter((s) => s && s.dayId && s.startedAt).map((s) => {
@@ -124,7 +129,7 @@ function migrate(data) {
         variants,
       };
     }),
-    settings: { ...base.settings, ...(data.settings || {}), equipment: { ...(data.settings?.equipment || {}) } },
+    settings: { ...base.settings, ...(data.settings || {}), equipment },
   };
 }
 

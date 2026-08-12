@@ -9,7 +9,7 @@
  *
  * path ทุกอันเป็น relative จึงทำงานได้ทั้งที่ root และใต้ /repo-name/
  */
-const CACHE = 'workout-v12';
+const CACHE = 'workout-v13';
 
 const ASSETS = [
   './',

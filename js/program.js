@@ -47,9 +47,9 @@ export const PROGRAM = [
         part: { en: 'CHEST', th: 'อก' },
         sets: 3, repsMin: 10, repsMax: 12, restSec: 90,
         options: [
-          { id: 'incline-chest-press', name: 'Incline Chest Press', nameTh: 'ดันอกเอียงด้วยเครื่อง — เบาะเอียง 30–45° เท่านั้น ชันกว่านี้กลายเป็นเล่นไหล่หน้า · ไม่มีเครื่องเอียงให้กดสลับไปตัวราบ', gear: 'machine', link: MW },
-          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง (เบาะราบ) — ปรับเบาะให้ด้ามจับอยู่ระดับกลางอก', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
-          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ตั้งเบาะเอียง 30–45° ใต้สมิธแมชชีน ถ้าสาขามี', gear: 'smith', link: MW },
+          { id: 'incline-chest-press', name: 'Incline Chest Press', nameTh: 'ดันอกเอียงด้วยเครื่อง — เบาะเอียง 30–45° เท่านั้น ชันกว่านี้กลายเป็นเล่นไหล่หน้า · จับแคบเท่าไหล่ · ดันให้รู้สึกที่อกใต้ไหปลาร้า · เครื่องไม่ว่างให้ไปตั้งเบาะเอียงใต้สมิธแมชชีน', gear: 'machine', link: MW },
+          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ตั้งเบาะเอียง 30–45° ใต้สมิธแมชชีน — ตัวแทนอันดับแรกเมื่อเครื่องเอียงไม่ว่าง', gear: 'smith', link: MW },
+          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง (เบาะราบ) — ใช้เฉพาะเมื่อไม่มีตัวเอียงจริง ๆ เพราะเบาะราบเน้นอกกลาง–ล่าง ไม่ใช่อกบนที่เป็นเป้า', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
           { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน เบาะราบ ถ้าสาขามี', gear: 'smith', link: MW },
         ],
       },
