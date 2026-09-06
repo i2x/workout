@@ -139,7 +139,7 @@ mkdir -p /tmp/pages-test && ln -sfn "$PWD" /tmp/pages-test/workout && npx serve 
   id: 'chest-press',            // กุญแจที่ประวัติผูกอยู่ — ห้ามเปลี่ยน
   part: { en: 'CHEST', th: 'อก' },   // ชื่อกล้ามเนื้อแบบที่ป้ายบนเครื่องเขียน
   sets: 3,
-  repsMin: 10,
+  repsMin: 8,
   repsMax: 12,                  // ถ้าเป็นจำนวนคงที่ ใส่ค่าเท่ากับ repsMin
   restSec: 90,                  // ถ้าโปรแกรมบอกเป็นช่วง ให้ใส่ค่ากลาง
   isTimed: false,               // true = กรอกเป็นวินาที เช่น Plank
