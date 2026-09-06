@@ -82,7 +82,7 @@ export const PROGRAM = [
         part: { en: 'TRICEPS', th: 'ไตรเซป' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
-          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'รอกบนสุด · ใส่บาร์ตรงหรือเชือก · ศอกแนบลำตัว กดลงจนแขนตรง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
+          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'รอกบนสุด · ใส่บาร์หักมุม (V-bar) — ข้อมือตรงเป็นแนวเดียวกับท่อนแขน อย่าให้หักหลัง · ศอกแนบซี่โครงนิ่งสนิท ถ้าศอกไหลลงหรือถอยหลังคือปีกเข้ามาช่วยแล้ว · กดลงจนแขนตรง · ไม่มี V-bar ใช้บาร์ตรง เชือกเก็บไว้ใช้วันที่ข้อมือหรือศอกไม่ไหว', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
           { id: 'machine-triceps', name: 'Triceps Extension Machine', nameTh: 'เหยียดไตรเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
@@ -127,7 +127,7 @@ export const PROGRAM = [
         part: { en: 'BICEPS', th: 'ไบเซป' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
-          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ · เปลี่ยนเป็นบาร์ตรง · ศอกแนบลำตัว ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
+          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ · เปลี่ยนเป็นบาร์ตรง จับหงายมือกว้างเท่าไหล่ · ถอยจากเสา 1 ก้าว ยืนชิดเสาแล้วช่วงล่างสุดจะไม่มีแรงต้าน เสียของ · ศอกแนบซี่โครง ห้ามเลื่อนไปข้างหน้า ไม่งั้นไหล่หน้าช่วยยก · ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
           { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
