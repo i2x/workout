@@ -9,6 +9,7 @@
  * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Rear Delt, Preacher Curl ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
  *
  * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
+ *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Smith Incline แยกเป็นท่าของตัวเอง ไว้ก่อน Chest Press ตอนอกยังสด
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
  *   เล่นแล้วรู้สึกแค่อกด้านข้าง ช่วงหดตัวด้านในไม่มีท่าไหนคุม
  *   อยู่ Day 2 ติดกับ Rear Delt เพราะเป็นเครื่องเดียวกัน — ท่าหน้า/หลังรวดเดียว แค่หมุนตัวนั่งกลับด้าน
@@ -50,14 +51,21 @@ export const PROGRAM = [
     shortLabel: 'PUSH',
     exercises: [
       {
+        id: 'incline-press',
+        part: { en: 'UPPER CHEST', th: 'อกบน' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ลากเบาะปรับเอียงเข้าใต้สมิธ ตั้ง 30° (ชันกว่านี้กลายเป็นไหล่) · นอนแล้วให้บาร์ลงมาตรงอกบนใต้ไหปลาร้า ไม่ใช่คอหรือหัวนม — เลื่อนเบาะจนตรงก่อนใส่แผ่น · ตั้งตัวกันบาร์ (safety) ไว้ต่ำกว่าอกนิดเดียว · ปลดล็อก: บิดข้อมือหมุนบาร์ออกจากตะขอ · ล็อกคืน: บิดกลับเกี่ยวตะขอตัวไหนก็ได้ · จับกว้างกว่าไหล่เล็กน้อย ศอก 45° · ลงช้า 2 วิ แตะอกเบา ๆ แล้วดันขึ้น · ครั้งแรกเริ่มจากบาร์เปล่า', gear: 'smith', link: MW },
+          { id: 'cable-low-high-fly', name: 'Low-to-High Cable Fly', nameTh: 'ตัวสำรองตอนสมิธไม่ว่าง · รอกสองข้างต่ำสุด · ด้ามเดี่ยว · ก้าวออกหน้าเสาครึ่งก้าว ดึงมือจากข้างสะโพกขึ้นมาชนกันระดับคาง บีบค้าง 1 วิ', gear: 'cable', link: MW },
+        ],
+      },
+      {
         id: 'chest-press',
         part: { en: 'CHEST', th: 'อก' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
-          { id: 'incline-chest-press', name: 'Incline Chest Press', nameTh: 'ดันอกเอียงด้วยเครื่อง — เบาะเอียง 30–45° เท่านั้น ชันกว่านี้กลายเป็นเล่นไหล่หน้า · จับแคบเท่าไหล่ · ศอกทำมุม 45° กับลำตัว อย่ากางออก · ดันสุดแล้วบีบอกเข้าหากันค้าง 1 วิ ให้รู้สึกที่อกใต้ไหปลาร้า · เครื่องไม่ว่างให้ไปตั้งเบาะเอียงใต้สมิธแมชชีน', gear: 'machine', link: MW },
-          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ตั้งเบาะเอียง 30–45° ใต้สมิธแมชชีน — ตัวแทนอันดับแรกเมื่อเครื่องเอียงไม่ว่าง', gear: 'smith', link: MW },
-          { id: 'machine-chest-press', name: 'Chest Press', nameTh: 'ดันอกด้วยเครื่อง (เบาะราบ) — ใช้เฉพาะเมื่อไม่มีตัวเอียงจริง ๆ เพราะเบาะราบเน้นอกกลาง–ล่าง ไม่ใช่อกบนที่เป็นเป้า', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
-          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ดันอกบนสมิธแมชชีน เบาะราบ ถ้าสาขามี', gear: 'smith', link: MW },
+          { id: 'machine-chest-press', name: 'Converging Chest Press', nameTh: 'เครื่อง Matrix Versa — ด้ามเข้าหากันเองตอนดัน · ใช้ด้ามแนวตั้ง (มือหันเข้าหากัน) ด้ามแนวนอนศอกจะกางแล้วโดนแต่อกข้างกับไหล่ · ก้านโยกด้านข้างตั้งให้ด้ามเริ่มใกล้ตัว อกรู้สึกยืดแต่ไหล่ไม่เจ็บ · เบาะให้ด้ามอยู่ระดับกลางอก · ดันสุดแล้วบีบอกค้าง 1 วิ', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
+          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · เบาะราบใต้สมิธ บาร์ลงตรงกลางอก', gear: 'smith', link: MW },
         ],
       },
       {
