@@ -1,4 +1,4 @@
-import { PROGRAM, totalSets, estimateMinutes } from '../program.js';
+import { PROGRAM, WEEKLY_PLAN, totalSets, estimateMinutes } from '../program.js';
 import { getLastPlayedMap, getActiveSession, hasProgress } from '../storage.js';
 import { weekSummary, readyToOverload, fmtNum } from '../stats.js';
 import { relativeDay } from '../format.js';
@@ -86,6 +86,13 @@ export function renderHome() {
 
       <div class="cards">
         ${PROGRAM.map((d, i) => dayCard(d, i, lastPlayed, nextId, activeDayId))}
+      </div>
+
+      <div class="note plan">
+        <b>แผนทั้งสัปดาห์</b>
+        <ul class="plan__list">
+          ${WEEKLY_PLAN.map(([title, detail]) => html`<li><b>${title}</b> — ${detail}</li>`)}
+        </ul>
       </div>
     </section>
   `);

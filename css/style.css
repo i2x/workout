@@ -428,6 +428,8 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
 
 .note b { color: var(--text); }
 .note a { color: var(--push); text-decoration: underline; }
+.plan__list { margin: 6px 0 0; padding-left: 18px; }
+.plan__list li + li { margin-top: 4px; }
 
 /* ---------- Bottom tab bar ---------- */
 
