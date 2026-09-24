@@ -9,6 +9,7 @@
  * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Rear Delt, Preacher Curl ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
  *
  * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
+ *   ท้องไม่อยู่ในตาราง — เล่น Ab Roller ที่บ้านวันว่าง 3–4 วัน/สัปดาห์ (ตัด Plank กับ Leg Raise ออก ก.ย. 2026)
  *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Smith Incline แยกเป็นท่าของตัวเอง ไว้ก่อน Chest Press ตอนอกยังสด
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
  *   เล่นแล้วรู้สึกแค่อกด้านข้าง ช่วงหดตัวด้านในไม่มีท่าไหนคุม
@@ -96,15 +97,6 @@ export const PROGRAM = [
           { id: 'machine-triceps', name: 'Triceps Extension Machine', nameTh: 'เหยียดไตรเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
-      {
-        id: 'plank',
-        part: { en: 'CORE', th: 'แกนกลางลำตัว' },
-        sets: 3, repsMin: 30, repsMax: 30, restSec: 45,
-        isTimed: true,
-        options: [
-          { id: 'plank', name: 'Plank', nameTh: 'แพลงก์ค้างบนเสื่อ — ไม่ต้องใช้อุปกรณ์', gear: 'body', link: MW },
-        ],
-      },
     ],
   },
 
@@ -157,17 +149,6 @@ export const PROGRAM = [
         options: [
           { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'เครื่องเดียวกับ Pec Fly แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
           { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
-        ],
-      },
-      {
-        id: 'knee-raise',
-        part: { en: 'ABS', th: 'ท้องล่าง' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'hanging-leg-raise', name: 'Hanging Leg Raise', nameTh: 'ห้อยบาร์โหน · ยกขาเหยียดตรงขึ้นระดับสะโพก · ลงช้า ๆ ไม่แกว่งตัว', gear: 'body', link: MW },
-          { id: 'hanging-knee-raise', name: 'Hanging Knee Raise', nameTh: 'ห้อยบาร์โหน · งอเข่ายกขึ้นหาอก — ขั้นก่อนเหยียดขาตรง', gear: 'body', link: MW },
-          { id: 'captains-chair', name: "Captain's Chair", nameTh: 'เก้าอี้กัปตัน · วางแขนบนแป้น พิงหลัง ยกขาขึ้น — เบากว่าห้อยบาร์ ถ้าสาขามี', gear: 'machine', link: MW },
-          { id: 'lying-leg-raise', name: 'Lying Leg Raise', nameTh: 'นอนหงายบนเสื่อ ยกขาขึ้น-ลง — ตัวสำรองวันที่ห้อยบาร์ไม่ไหว', gear: 'body', link: MW },
         ],
       },
     ],
