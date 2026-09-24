@@ -64,7 +64,7 @@ export const PROGRAM = [
         part: { en: 'CHEST', th: 'อก' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
-          { id: 'machine-chest-press', name: 'Converging Chest Press', nameTh: 'เครื่อง Matrix Versa — ด้ามเข้าหากันเองตอนดัน · ใช้ด้ามแนวตั้ง (มือหันเข้าหากัน) ด้ามแนวนอนศอกจะกางแล้วโดนแต่อกข้างกับไหล่ · ก้านโยกด้านข้างตั้งให้ด้ามเริ่มใกล้ตัว อกรู้สึกยืดแต่ไหล่ไม่เจ็บ · เบาะให้ด้ามอยู่ระดับกลางอก · ดันสุดแล้วบีบอกค้าง 1 วิ', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
+          { id: 'machine-chest-press', name: 'Converging Chest Press', nameTh: 'เครื่อง Matrix Versa — ด้ามเข้าหากันเองตอนดัน · เบาะ (ปุ่มส้มใต้เบาะ) ให้ด้ามอยู่ระดับกลางอก · ปุ่มส้มบนหัวแขนเครื่องตั้งจุดเริ่ม ให้ด้ามอยู่เลยแนวอกไปข้างหลังนิดเดียว อกรู้สึกยืดแต่ไหล่ไม่เจ็บ · จับค่อนไปทางปลายด้ามด้านใน · ศอกต่ำกว่าไหล่ ทำมุม 45–60° กับลำตัว อย่ากางตั้งฉาก · หนีบสะบักแนบเบาะ อกยืด · ดันสุดแล้วบีบอกค้าง 1 วิ', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
           { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · เบาะราบใต้สมิธ บาร์ลงตรงกลางอก', gear: 'smith', link: MW },
         ],
       },
