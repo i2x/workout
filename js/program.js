@@ -3,12 +3,15 @@
  * แก้ไฟล์นี้ไฟล์เดียวเพื่อเปลี่ยนตาราง — ส่วนอื่นของแอปอ่านจากที่นี่ทั้งหมด
  *
  * ใช้เครื่องกับเคเบิลเท่านั้น ไม่มีดัมเบล
- *   Day 3 เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง — Leg Press, Leg Extension, Leg Curl, Glute, Calf Raise
+ *   Day 3 เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง — Leg Press, Leg Extension, Leg Curl, Calf Raise
  *   Day 1/2 ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
  * nameTh ของท่าเคเบิลบอกวิธีตั้งเครื่องไว้ด้วย (รอกสูงเท่าไหร่ ใส่ด้ามอะไร)
  * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Rear Delt, Preacher Curl ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
  *
  * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
+ *   ตัดเพื่อทรง V (ก.ย. 2026): วันละ 4 ท่า ~24 นาที — เก็บเฉพาะท่าที่สร้างไหล่กว้าง ปีกกว้าง อกบน ไหล่หลัง
+ *   Pushdown / Cable Curl / Glute ออกช่วงคัต เพราะไตร/ไบ/ก้นได้จากท่าดัน ท่าดึง และ Leg Press อยู่แล้ว
+ *   id เดิม (triceps-ext, biceps-curl, glute) อย่าเอาไปใช้กับท่าอื่น — ถ้าเอาท่ากลับมาให้ใช้ id เดิมประวัติจะต่อกัน
  *   ท้องไม่อยู่ในตาราง — เล่น Ab Roller ที่บ้านวันว่าง 3–4 วัน/สัปดาห์ (ตัด Plank กับ Leg Raise ออก ก.ย. 2026)
  *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Low-to-High Cable Fly (ตัวหลัก เข้าใจง่ายกว่า) หรือ Smith Incline แยกเป็นท่าของตัวเอง ไว้ก่อน Chest Press ตอนอกยังสด
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
@@ -47,7 +50,7 @@ export const PROGRAM = [
   {
     id: 'day1',
     title: 'Day 1 — Push',
-    subtitle: 'อก / ไหล่ / ไตรเซป',
+    subtitle: 'อกบน / อก / ไหล่',
     accent: 'push',
     shortLabel: 'PUSH',
     exercises: [
@@ -88,22 +91,13 @@ export const PROGRAM = [
           { id: 'machine-lateral-raise', name: 'Lateral Raise Machine', nameTh: 'กางไหล่ด้วยเครื่อง ถ้าสาขามี — รู้สึกง่ายกว่าเคเบิลเพราะเครื่องบังคับทางให้', gear: 'machine', link: MW },
         ],
       },
-      {
-        id: 'triceps-ext',
-        part: { en: 'TRICEPS', th: 'ไตรเซป' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'รอกบนสุด · ใส่บาร์หักมุม (V-bar) — ข้อมือตรงเป็นแนวเดียวกับท่อนแขน อย่าให้หักหลัง · ศอกแนบซี่โครงนิ่งสนิท ถ้าศอกไหลลงหรือถอยหลังคือปีกเข้ามาช่วยแล้ว · กดลงจนแขนตรง · ไม่มี V-bar ใช้บาร์ตรง เชือกเก็บไว้ใช้วันที่ข้อมือหรือศอกไม่ไหว', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
-          { id: 'machine-triceps', name: 'Triceps Extension Machine', nameTh: 'เหยียดไตรเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-        ],
-      },
     ],
   },
 
   {
     id: 'day2',
     title: 'Day 2 — Pull',
-    subtitle: 'หลัง / ไบเซป / อกด้านใน',
+    subtitle: 'ปีก / กลางหลัง / อก / ไหล่หลัง',
     accent: 'pull',
     shortLabel: 'PULL',
     exercises: [
@@ -122,15 +116,6 @@ export const PROGRAM = [
         options: [
           { id: 'seated-cable-row', name: 'Seated Cable Row', nameTh: 'เบาะที่รอกล่าง · เท้ายันแป้น · ดึงด้ามเข้าหาท้อง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
           { id: 'machine-row', name: 'Seated Row Machine', nameTh: 'โรว์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
-        ],
-      },
-      {
-        id: 'biceps-curl',
-        part: { en: 'BICEPS', th: 'ไบเซป' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ · เปลี่ยนเป็นบาร์ตรง จับหงายมือกว้างเท่าไหล่ · ถอยจากเสา 1 ก้าว ยืนชิดเสาแล้วช่วงล่างสุดจะไม่มีแรงต้าน เสียของ · ศอกแนบซี่โครง ห้ามเลื่อนไปข้างหน้า ไม่งั้นไหล่หน้าช่วยยก · ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
-          { id: 'preacher-curl', name: 'Biceps Curl Machine', nameTh: 'ม้วนไบเซปด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -157,7 +142,7 @@ export const PROGRAM = [
   {
     id: 'day3',
     title: 'Day 3 — Legs',
-    subtitle: 'ขา / ก้น / น่อง',
+    subtitle: 'ขาหน้า / ขาหลัง / น่อง',
     accent: 'legs',
     shortLabel: 'LEGS',
     exercises: [
@@ -183,14 +168,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'seated-leg-curl', name: 'Leg Curl', nameTh: 'งอขาหลังด้วยเครื่อง — ปรับแป้นให้อยู่เหนือส้นเท้า', gear: 'machine', link: MW },
-        ],
-      },
-      {
-        id: 'glute',
-        part: { en: 'GLUTE', th: 'ก้น' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'glute-machine', name: 'Glute', nameTh: 'เครื่องเตะก้น — เท้าดันแป้น เตะไปข้างหลังทีละข้าง', gear: 'machine', link: MW },
         ],
       },
       {
