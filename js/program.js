@@ -11,10 +11,10 @@
  *   เครื่องไม่ว่างให้รอหรือสลับลำดับท่าในวันนั้น ไม่ต้องเปลี่ยนท่า
  *
  * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
- *   ตัดเพื่อทรง V (ก.ย. 2026): วันละ 4 ท่า ~24 นาที (วันขามี 7 — ทดลอง Smith Bench + แขน 2 ท่า ~35 นาที) — เก็บเฉพาะท่าที่สร้างไหล่กว้าง ปีกกว้าง อกบน ไหล่หลัง
+ *   ตัดเพื่อทรง V (ก.ย. 2026): วันละ 5 ท่า ~30 นาที เท่ากันทั้งสามวัน — เก็บเฉพาะท่าที่สร้างไหล่กว้าง ปีกกว้าง อกบน ไหล่หลัง
  *   Glute ออกช่วงคัต เพราะก้นได้จาก Leg Press อยู่แล้ว — id glute อย่าเอาไปใช้กับท่าอื่น
- *   Pushdown / Cable Curl เคยตัด แล้วเอากลับมาปิดท้ายวันขา (ก.ย. 2026) ใช้ id เดิม triceps-ext / biceps-curl ประวัติต่อกัน
- *   เหตุผล: Push/Pull ไม่มีท่าแขนตรง ๆ เลย แขนจะตามไหล่ไม่ทัน · วันขาแขนสดที่สุด และเสาเคเบิลเดียวกันสองท่า
+ *   Pushdown / Cable Curl เคยตัด แล้วเอากลับมา (ก.ย. 2026) ใช้ id เดิม triceps-ext / biceps-curl ประวัติต่อกัน
+ *   Pushdown ปิดท้าย Push (ไตรอุ่นจากท่าดันแล้ว เสาเดียวกับ Lateral Raise) · Curl ต่อจาก Row ใน Pull (รอกล่างเดิม) — วันละ 5 ท่าเท่ากัน ไม่กองที่วันขา
  *   ท้องไม่อยู่ในตาราง — เล่น Ab Roller ที่บ้านวันว่าง 3–4 วัน/สัปดาห์ (ตัด Plank กับ Leg Raise ออก ก.ย. 2026)
  *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Smith Incline 30° (เปลี่ยนจาก Low-to-High Cable Fly ก.ย. 2026 เพราะใส่น้ำหนักได้มากกว่า) ไว้ก่อน Chest Press ตอนอกยังสด
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
@@ -55,7 +55,7 @@ export const PROGRAM = [
   {
     id: 'day1',
     title: 'Day 1 — Push',
-    subtitle: 'ไหล่ข้าง / อกบน / อก / ไหล่',
+    subtitle: 'ไหล่ข้าง / อกบน / อก / ไหล่ / ไตรเซป',
     accent: 'push',
     shortLabel: 'PUSH',
     exercises: [
@@ -91,13 +91,21 @@ export const PROGRAM = [
           { id: 'machine-shoulder-press', name: 'Shoulder Press Machine', nameTh: 'ดันไหล่ด้วยเครื่อง — ปรับเบาะให้ด้ามอยู่ระดับหู', gear: 'machine', link: MW },
         ],
       },
+      {
+        id: 'triceps-ext',
+        part: { en: 'TRICEPS', th: 'ไตรเซป' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'ท่าสุดท้าย เดินกลับมาเสาเคเบิลเดิมที่เล่น Lateral Raise · รอกบนสุด · ใส่บาร์หักมุม (V-bar) — ข้อมือตรงเป็นแนวเดียวกับท่อนแขน อย่าให้หักหลัง · ศอกแนบซี่โครงนิ่งสนิท ถ้าศอกไหลลงหรือถอยหลังคือปีกเข้ามาช่วยแล้ว · กดลงจนแขนตรง · ไม่มี V-bar ใช้บาร์ตรง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
+        ],
+      },
     ],
   },
 
   {
     id: 'day2',
     title: 'Day 2 — Pull',
-    subtitle: 'ปีก / กลางหลัง / อก / ไหล่หลัง',
+    subtitle: 'ปีก / กลางหลัง / ไบเซป / อก / ไหล่หลัง',
     accent: 'pull',
     shortLabel: 'PULL',
     exercises: [
@@ -115,6 +123,14 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'seated-cable-row', name: 'Seated Cable Row', nameTh: 'เบาะที่รอกล่าง · เท้ายันแป้น · ดึงด้ามเข้าหาท้อง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
+        ],
+      },
+      {
+        id: 'biceps-curl',
+        part: { en: 'BICEPS', th: 'ไบเซป' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ ไม่ต้องย้ายเสา · เปลี่ยนเป็นบาร์ตรง จับหงายมือกว้างเท่าไหล่ · ถอยจากเสา 1 ก้าว ยืนชิดเสาแล้วช่วงล่างสุดจะไม่มีแรงต้าน เสียของ · ศอกแนบซี่โครง ห้ามเลื่อนไปข้างหน้า ไม่งั้นไหล่หน้าช่วยยก · ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
         ],
       },
       {
@@ -139,7 +155,7 @@ export const PROGRAM = [
   {
     id: 'day3',
     title: 'Day 3 — Legs',
-    subtitle: 'ขาหน้า / ขาหลัง / น่อง / อก / แขน',
+    subtitle: 'ขาหน้า / ขาหลัง / น่อง / อก',
     accent: 'legs',
     shortLabel: 'LEGS',
     exercises: [
@@ -183,22 +199,6 @@ export const PROGRAM = [
           { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ท่าสุดท้ายของวันขา — ทดลอง ก.ย. 2026 อยากลองสมิธ · เบาะราบใต้สมิธ เลื่อนเบาะให้บาร์ลงตรงกลางอก (ระดับหัวนม) · ตั้งตัวกันบาร์ (safety) ไว้ต่ำกว่าอกนิดเดียว · จับกว้างกว่าไหล่เล็กน้อย ศอก 45° ไม่กางตั้งฉาก · หนีบสะบัก อกยืด · ปลดล็อก: บิดข้อมือหมุนบาร์ออกจากตะขอ · ลงช้า 2 วิ แตะอกเบา ๆ ดันขึ้น · ล็อกคืน: บิดกลับเกี่ยวตะขอตัวไหนก็ได้ · ครั้งแรกเริ่มจากบาร์เปล่า · ถ้าไหล่หน้าหรือข้อศอกปวดต่อเนื่องเกิน 2 สัปดาห์ ให้ถอดท่านี้ออก', gear: 'smith', link: MW },
         ],
       },
-      {
-        id: 'triceps-ext',
-        part: { en: 'TRICEPS', th: 'ไตรเซป' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'cable-pushdown', name: 'Triceps Pushdown', nameTh: 'ต่อจาก Smith Bench ตอนไตรเซปอุ่นแล้ว · รอกบนสุด · ใส่บาร์หักมุม (V-bar) — ข้อมือตรงเป็นแนวเดียวกับท่อนแขน อย่าให้หักหลัง · ศอกแนบซี่โครงนิ่งสนิท ถ้าศอกไหลลงหรือถอยหลังคือปีกเข้ามาช่วยแล้ว · กดลงจนแขนตรง · ไม่มี V-bar ใช้บาร์ตรง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/rope-tricep-extension.html' },
-        ],
-      },
-      {
-        id: 'biceps-curl',
-        part: { en: 'BICEPS', th: 'ไบเซป' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'cable-curl', name: 'Cable Curl', nameTh: 'เสาเดียวกับ Pushdown แค่ย้ายรอกลงล่างสุด · เปลี่ยนเป็นบาร์ตรง จับหงายมือกว้างเท่าไหล่ · ถอยจากเสา 1 ก้าว ยืนชิดเสาแล้วช่วงล่างสุดจะไม่มีแรงต้าน เสียของ · ศอกแนบซี่โครง ห้ามเลื่อนไปข้างหน้า ไม่งั้นไหล่หน้าช่วยยก · ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
-        ],
-      },
     ],
   },
 ];
@@ -208,7 +208,7 @@ export const PROGRAM = [
  * [หัวข้อ, รายละเอียด]
  */
 export const WEEKLY_PLAN = [
-  ['ยิม 6 วัน', 'วันละ ~25 นาที ตามการ์ดด้านบน · 3 เซตใส่สุด · วันขายาวกว่า ปิดท้ายด้วย Smith Bench + แขน'],
+  ['ยิม 6 วัน', 'วันละ 5 ท่า ~30 นาที ตามการ์ดด้านบน · 3 เซตใส่สุด'],
   ['Lateral Raise เซตเบา', '2 เซตในวัน Pull กับ Legs · เหลือแรง 2–3 ครั้ง · รวมไหล่ข้าง 10 เซต/สัปดาห์'],
   ['Ab Roller ที่บ้าน', '3–4 วัน/สัปดาห์ · 4 × 10–20 · ได้ 20 ครบทุกเซตให้กลิ้งไกลขึ้น'],
   ['เดิน 6 กม. ทุกวัน', 'ฝนตกใช้กระโดดเชือกแทน'],
