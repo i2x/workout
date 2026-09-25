@@ -6,14 +6,15 @@
  *   Day 3 เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง — Leg Press, Leg Extension, Leg Curl, Calf Raise
  *   Day 1/2 ส่วนที่ไม่มีเครื่องเฉพาะ ใช้เคเบิลแทน
  * nameTh ของท่าเคเบิลบอกวิธีตั้งเครื่องไว้ด้วย (รอกสูงเท่าไหร่ ใส่ด้ามอะไร)
- * ท่าที่ต้องใช้เครื่องนอกลิสต์ (Rear Delt, Preacher Curl ฯลฯ) อยู่ในตัวสำรอง เผื่อสาขามี
+ * ท่าละตัวเดียว ไม่มีตัวสำรอง (ก.ย. 2026) — เจ้าของไม่เคยกดสลับ เอาออกให้ตารางชัด
+ *   เครื่องไม่ว่างให้รอหรือสลับลำดับท่าในวันนั้น ไม่ต้องเปลี่ยนท่า
  *
  * เก็บเฉพาะท่าที่ "ไม่มีอะไรแทนได้" — ตัดท่าที่ซ้ำกับท่าอื่นในวันเดียวกันออก
  *   ตัดเพื่อทรง V (ก.ย. 2026): วันละ 4 ท่า ~24 นาที — เก็บเฉพาะท่าที่สร้างไหล่กว้าง ปีกกว้าง อกบน ไหล่หลัง
  *   Pushdown / Cable Curl / Glute ออกช่วงคัต เพราะไตร/ไบ/ก้นได้จากท่าดัน ท่าดึง และ Leg Press อยู่แล้ว
  *   id เดิม (triceps-ext, biceps-curl, glute) อย่าเอาไปใช้กับท่าอื่น — ถ้าเอาท่ากลับมาให้ใช้ id เดิมประวัติจะต่อกัน
  *   ท้องไม่อยู่ในตาราง — เล่น Ab Roller ที่บ้านวันว่าง 3–4 วัน/สัปดาห์ (ตัด Plank กับ Leg Raise ออก ก.ย. 2026)
- *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Low-to-High Cable Fly (ตัวหลัก เข้าใจง่ายกว่า) หรือ Smith Incline แยกเป็นท่าของตัวเอง ไว้ก่อน Chest Press ตอนอกยังสด
+ *   ยิมไม่มีเครื่องดันอกเอียง — อกบนใช้ Low-to-High Cable Fly ไว้ก่อน Chest Press ตอนอกยังสด (ถ้าอยากใส่น้ำหนักมากขึ้นค่อยเปลี่ยนเป็น Smith Incline 30°)
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
  *   เล่นแล้วรู้สึกแค่อกด้านข้าง ช่วงหดตัวด้านในไม่มีท่าไหนคุม
  *   อยู่ Day 2 ติดกับ Rear Delt เพราะเป็นเครื่องเดียวกัน — ท่าหน้า/หลังรวดเดียว แค่หมุนตัวนั่งกลับด้าน
@@ -62,7 +63,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 75,
         options: [
           { id: 'cable-low-high-fly', name: 'Low-to-High Cable Fly', nameTh: 'รอกสองข้างต่ำสุด · ด้ามเดี่ยว · ก้าวออกหน้าเสาครึ่งก้าว ศอกงอนิดเดียวค้างไว้ ดึงมือจากข้างสะโพกเฉียงขึ้นมาชนกันระดับคาง ให้รู้สึกที่อกใต้ไหปลาร้า บีบค้าง 1 วิ ปล่อยกลับช้า ๆ · ถ้ารู้สึกที่ไหล่หน้ามากกว่าอก ลดน้ำหนัก', gear: 'cable', link: MW },
-          { id: 'smith-incline-bench', name: 'Smith Machine Incline Press', nameTh: 'ตัวสำรองเมื่ออยากใส่น้ำหนักมากขึ้น · ลากเบาะปรับเอียงเข้าใต้สมิธ ตั้ง 30° (ชันกว่านี้กลายเป็นไหล่) · นอนแล้วให้บาร์ลงมาตรงอกบนใต้ไหปลาร้า ไม่ใช่คอหรือหัวนม — เลื่อนเบาะจนตรงก่อนใส่แผ่น · ตั้งตัวกันบาร์ (safety) ไว้ต่ำกว่าอกนิดเดียว · ปลดล็อก: บิดข้อมือหมุนบาร์ออกจากตะขอ · ล็อกคืน: บิดกลับเกี่ยวตะขอตัวไหนก็ได้ · จับกว้างกว่าไหล่เล็กน้อย ศอก 45° · ลงช้า 2 วิ แตะอกเบา ๆ แล้วดันขึ้น · ครั้งแรกเริ่มจากบาร์เปล่า', gear: 'smith', link: MW },
         ],
       },
       {
@@ -71,7 +71,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
           { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'ตั้งค่าเดียวกับ Fly ท่าก่อนหน้า (รอกล่างสุด · ด้ามเดี่ยว) เล่นต่อได้เลยไม่ต้องย้ายเสา · ยืนข้างเสาทีละข้าง · เอาเบาไว้ ห้ามยักบ่า ยกแค่ระดับไหล่', gear: 'cable', link: MW },
-          { id: 'machine-lateral-raise', name: 'Lateral Raise Machine', nameTh: 'กางไหล่ด้วยเครื่อง ถ้าสาขามี — รู้สึกง่ายกว่าเคเบิลเพราะเครื่องบังคับทางให้', gear: 'machine', link: MW },
         ],
       },
       {
@@ -80,7 +79,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'machine-chest-press', name: 'Converging Chest Press', nameTh: 'เครื่อง Matrix Versa — ด้ามเข้าหากันเองตอนดัน · เบาะ (ปุ่มส้มใต้เบาะ) ให้ด้ามอยู่ระดับกลางอก · ปุ่มส้มบนหัวแขนเครื่องตั้งจุดเริ่ม ให้ด้ามอยู่เลยแนวอกไปข้างหลังนิดเดียว อกรู้สึกยืดแต่ไหล่ไม่เจ็บ · จับค่อนไปทางปลายด้ามด้านใน · ศอกต่ำกว่าไหล่ ทำมุม 45–60° กับลำตัว อย่ากางตั้งฉาก · หนีบสะบักแนบเบาะ อกยืด · ดันสุดแล้วบีบอกค้าง 1 วิ', gear: 'machine', link: 'https://www.acefitness.org/resources/everyone/exercise-library/188/seated-chest-press/' },
-          { id: 'smith-bench', name: 'Smith Machine Bench Press', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · เบาะราบใต้สมิธ บาร์ลงตรงกลางอก', gear: 'smith', link: MW },
         ],
       },
       {
@@ -89,8 +87,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'machine-shoulder-press', name: 'Shoulder Press Machine', nameTh: 'ดันไหล่ด้วยเครื่อง — ปรับเบาะให้ด้ามอยู่ระดับหู', gear: 'machine', link: MW },
-          { id: 'smith-shoulder-press', name: 'Smith Machine Shoulder Press', nameTh: 'นั่งใต้สมิธแมชชีน ดันบาร์ขึ้นเหนือหัว', gear: 'smith', link: MW },
-          { id: 'cable-shoulder-press', name: 'Cable Shoulder Press', nameTh: 'รอกล่างสุดสองข้าง · ด้ามเดี่ยว · ยืนกลางเสา ดันขึ้นเหนือหัว', gear: 'cable', link: MW },
         ],
       },
     ],
@@ -109,7 +105,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'lat-pulldown', name: 'Lat Pulldown', nameTh: 'ดึงบาร์ลงมาที่หน้าอก — ปรับแป้นล็อกต้นขาให้แน่น · กดสะบักลงก่อนแล้วค่อยงอศอก ไม่งั้นไบเซปกับบ่าทำงานแทนปีก · ปล่อยขึ้นช้า 3 วิ', gear: 'machine', link: 'https://musclewiki.com/exercise/machine-pulldown' },
-          { id: 'straight-arm-pulldown', name: 'Straight-Arm Pulldown', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสูงสุด · ด้ามตรง · ยืนถอยจากเสาหนึ่งก้าว โน้มตัวไปหน้าเล็กน้อย แขนเหยียดเกือบตรงค้างไว้ กดด้ามลงมาชนต้นขาโดยไม่งอศอก บีบปีกค้าง 1 วิ · เอาเบาไว้ ท่านี้ไบเซปไม่ช่วย', gear: 'cable', link: MW },
         ],
       },
       {
@@ -118,7 +113,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
           { id: 'seated-cable-row', name: 'Seated Cable Row', nameTh: 'เบาะที่รอกล่าง · เท้ายันแป้น · ดึงด้ามเข้าหาท้อง', gear: 'cable', link: 'https://www.muscleandstrength.com/exercises/seated-row.html' },
-          { id: 'machine-row', name: 'Seated Row Machine', nameTh: 'โรว์ด้วยเครื่อง ถ้าสาขามี', gear: 'machine', link: MW },
         ],
       },
       {
@@ -127,7 +121,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
           { id: 'pec-fly-machine', name: 'Pec Fly', nameTh: 'เครื่องเดียวกับ Rear Delt ท่าถัดไป — เล่นท่านี้ก่อน เสร็จแล้วหมุนตัวนั่งกลับด้านเล่นต่อได้เลยไม่ต้องย้ายเครื่อง · นั่งหันหลังชนเบาะ · ปรับเบาะให้ด้ามอยู่ระดับอก · ศอกงอนิดเดียวค้างไว้ · หนีบแขนเข้ามาจนมือเกือบชนกัน บีบค้าง 1 วิ แล้วปล่อยกลับช้า ๆ · เอาเบาไว้ ท่านี้วัดกันที่บีบได้สุด ไม่ใช่น้ำหนัก', gear: 'machine', link: MW },
-          { id: 'cable-fly', name: 'Cable Fly', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสองข้างสูงระดับไหล่ · ด้ามเดี่ยว · ก้าวออกหน้าเสาครึ่งก้าว ดึงมือมาไขว้กันเล็กน้อยหน้าอก บีบค้าง 1 วิ', gear: 'cable', link: MW },
         ],
       },
       {
@@ -136,7 +129,6 @@ export const PROGRAM = [
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
           { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'เครื่องเดียวกับ Pec Fly แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
-          { id: 'cable-face-pull', name: 'Cable Face Pull', nameTh: 'ตัวสำรองตอนเครื่องไม่ว่าง · รอกสูงระดับหน้า · ใส่เชือก · ดึงเข้าหาหน้าผาก กางศอกออก', gear: 'cable', link: MW },
         ],
       },
     ],
