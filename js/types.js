@@ -24,6 +24,7 @@
  * @property {string} subtitle        เช่น "อก / ไหล่ / ไตรเซป"
  * @property {string} accent          คีย์สีประจำวัน: push | pull | legs
  * @property {string} shortLabel      ป้ายสั้น ๆ เช่น "PUSH"
+ * @property {boolean} [home]         true = ชุดเล่นที่บ้าน แบดจ์หมายถึง "ขยับขั้น" ไม่ใช่เพิ่มน้ำหนัก
  * @property {Exercise[]} exercises
  *
  * ---- ข้อมูลที่ผู้ใช้บันทึก (เก็บใน localStorage) ----
@@ -45,6 +46,7 @@
  * @property {'auto'|'dark'|'light'} theme
  * @property {boolean} sound
  * @property {boolean} vibrate
+ * @property {'gym'|'home'} place     ชุดตารางที่หน้าแรกแสดง
  * @property {Record<string, string>} equipment    exerciseId -> optionId ที่เลือกไว้ล่าสุด
  *
  * @typedef {Object} AppData

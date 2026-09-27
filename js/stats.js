@@ -113,14 +113,19 @@ export function weekStart(ts = Date.now()) {
   return d.getTime();
 }
 
-/** สรุปสัปดาห์นี้ เทียบกับสัปดาห์ก่อน */
-export function weekSummary(now = Date.now()) {
+/**
+ * สรุปสัปดาห์นี้ เทียบกับสัปดาห์ก่อน
+ * days = นับเฉพาะวันในชุดนี้ — ปริมาตรดัมเบลที่บ้านเทียบกับเครื่องในยิมไม่ได้ ถ้ารวมกัน % จะดิ่งหลอก ๆ
+ */
+export function weekSummary(now = Date.now(), days = null) {
   const thisWeek = weekStart(now);
   const lastWeek = weekStart(thisWeek - 1);
   const acc = { count: 0, volume: 0 };
   const prev = { count: 0, volume: 0 };
+  const ids = days ? new Set(days.map((d) => d.id)) : null;
 
   for (const s of getSessions()) {
+    if (ids && !ids.has(s.dayId)) continue;
     const bucket = s.finishedAt >= thisWeek ? acc : s.finishedAt >= lastWeek ? prev : null;
     if (!bucket) continue;
     bucket.count += 1;

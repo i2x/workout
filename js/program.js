@@ -208,14 +208,193 @@ export const WEEKLY_PLAN = [
   ['เดิน 6 กม. ทุกวัน', 'ฝนตกใช้กระโดดเชือกแทน'],
 ];
 
-/** หา Day จาก id */
+/**
+ * ชุดเล่นที่บ้าน (ก.ย. 2026 น้ำท่วม ไปยิมไม่ได้) — เลือกได้จากปุ่ม ยิม/บ้าน หน้าแรก
+ * อุปกรณ์: ดัมเบล 15 × 2, 8 × 2 · บาร์โหน · dip · ม้าปรับระดับ · Ab Roller
+ *
+ * แทนท่ายิมแบบ 1:1 — กล้ามที่ท่ายิมคุม ที่บ้านก็มีท่าคุมกล้ามนั้นท่าเดียว ลำดับเดียวกัน
+ * id ทุกตัวขึ้นต้น home- แยกจากยิม เพราะน้ำหนักดัมเบลเทียบกับตัวเลขบนเครื่องไม่ได้
+ *   ประวัติยิมไม่ปน น้ำลดแล้วกลับไปใช้ชุดยิมต่อได้เลย · อย่าย้ายท่าบ้านไปใส่ options ของท่ายิม
+ *
+ * ดัมเบลมีแค่ 2 น้ำหนัก เพิ่มทีละ 2.5 kg ไม่ได้ — กติกา 12 ครบสามเซตเหมือนเดิม
+ * แต่แบดจ์หมายถึง "ขยับขั้น" (HOME_STEPS) ไม่ใช่เพิ่มน้ำหนัก · ช่วงเรพยัง 8–12
+ * Pull-up / Dips จดเฉพาะครั้งที่ขึ้นเต็มเอง ครั้งที่เท้าช่วยไม่จด — แบดจ์ขึ้น = หนีบดัมเบลที่เท้า
+ */
+export const HOME_STEPS = 'ลง 3 วิ → + ค้าง 1–2 วิ ตรงจุดยากสุด → 1½ เรพ → ดัมเบลหนักขึ้นหรือทำทีละข้าง';
+
+/** @type {import('./types.js').Day[]} */
+export const HOME_PROGRAM = [
+  {
+    id: 'home1',
+    home: true,
+    title: 'Home — Push',
+    subtitle: 'ไหล่ข้าง / อกบน / อก / ไหล่ / ไตรเซป',
+    accent: 'push',
+    shortLabel: 'HOME PUSH',
+    exercises: [
+      {
+        id: 'home-lateral-raise',
+        part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'db-lateral-raise', name: 'DB Lateral Raise', nameTh: 'ดัมเบล 8 · แทน Cable Lateral · ยืนตรง ยกแค่ระดับไหล่ ห้ามยักบ่า ห้ามเหวี่ยง · 8 kg ไม่ถึง 8 ครั้ง → ทำทีละแขน มืออีกข้างจับเสา dip', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-incline-press',
+        part: { en: 'UPPER CHEST', th: 'อกบน' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'incline-db-press', name: 'Incline DB Press', nameTh: 'ดัมเบล 15 × 2 · แทน Smith Incline · ม้า 30° เท่าเดิม · ลงช้าจนดัมเบลอยู่ข้างอกบน ศอก 45° · ดันขึ้นให้ดัมเบลเข้าหากันนิด ๆ', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-dips',
+        part: { en: 'CHEST', th: 'อก' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'chest-dips', name: 'Dips (Chest Lean)', nameTh: 'ตัวเอง · แทน Chest Press · เอนตัวไปหน้า ~30° = ลงอก ตัวตรง = ไตร · ลงแค่ไหล่ต่ำกว่าศอกนิดเดียว ไหล่หน้าเจ็บให้ตื้นลง · ไม่ถึง 8: ครั้งเต็มให้หมดก่อน แล้วกระโดดขึ้นค้างบน ลงช้า 3 วิ จนครบ 8 · จดเฉพาะครั้งเต็ม น้ำหนักใส่ 0', gear: 'body', link: MW },
+        ],
+      },
+      {
+        id: 'home-shoulder-press',
+        part: { en: 'SHOULDER', th: 'ไหล่' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'seated-db-press', name: 'Seated DB Shoulder Press', nameTh: 'ดัมเบล 15 × 2 · แทน Shoulder Press · ม้าตั้ง ~80° ไม่ต้องตั้งฉากเป๊ะ · เริ่มที่ดัมเบลระดับหู ข้อมืออยู่เหนือศอก', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-triceps',
+        part: { en: 'TRICEPS', th: 'ไตรเซป' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'db-overhead-ext', name: 'Overhead DB Extension', nameTh: 'ดัมเบล 15 ลูกเดียว ถือสองมือ · แทน Pushdown · นั่งม้าตั้งตรง ศอกชี้เพดานนิ่ง ไม่กางออก · ลดดัมเบลลงหลังหัวจนแขนหลังยืด แล้วเหยียดขึ้น', gear: 'db', link: MW },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'home2',
+    home: true,
+    title: 'Home — Pull',
+    subtitle: 'ปีก / กลางหลัง / ไบเซป / อก / ไหล่หลัง',
+    accent: 'pull',
+    shortLabel: 'HOME PULL',
+    exercises: [
+      {
+        id: 'home-pullup',
+        part: { en: 'LAT', th: 'ปีก' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'pull-up', name: 'Pull-up', nameTh: 'ตัวเอง · แทน Lat Pulldown · คว่ำมือกว้างกว่าไหล่นิด · กดสะบักลงก่อนแล้วค่อยงอศอก เหมือน pulldown · ไม่ถึง 8: ขึ้นเต็มให้หมดก่อน แล้ววางม้าใต้บาร์ เท้าแตะม้าช่วยต่อจนครบ 8–12 · จดเฉพาะครั้งเต็ม น้ำหนักใส่ 0 · เต็ม 12 ครบสามเซต → หนีบดัมเบล 8 ที่เท้า', gear: 'body', link: MW },
+        ],
+      },
+      {
+        id: 'home-row',
+        part: { en: 'MID BACK', th: 'กลางหลัง' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'one-arm-db-row', name: 'One-arm DB Row', nameTh: 'ดัมเบล 15 · แทน Seated Row · มือกับเข่าข้างเดียวกันวางบนม้า หลังขนานพื้น · ดึงศอกไปหาสะโพก ไม่ใช่ขึ้นหาหู · ปล่อยลงจนหลังยืดสุด · ครบสองข้าง = 1 เซต จดเรพต่อข้าง', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-curl',
+        part: { en: 'BICEPS', th: 'ไบเซป' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'incline-db-curl', name: 'Incline DB Curl', nameTh: 'ดัมเบล 8 × 2 · แทน Cable Curl · นั่งม้าเอน 45–60° แขนห้อยเลยลำตัวไปข้างหลัง ช่วงล่างยืดเหมือนเคเบิล · ศอกนิ่ง ม้วนขึ้นหาไหล่', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-fly',
+        part: { en: 'CHEST', th: 'อกด้านใน' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'flat-db-fly', name: 'DB Fly', nameTh: 'เริ่มดัมเบล 8 → 15 · แทน Pec Fly · ม้าราบ ศอกงอนิดเดียวแล้วล็อก · ลงจนอกยืด · ขึ้นมาหยุดก่อนดัมเบลชนกัน (ชนแล้วแรงต้านหาย) บีบอกค้าง 1 วิ', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-rear-delt',
+        part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+        options: [
+          { id: 'chest-supported-rear-delt', name: 'Chest-supported Rear Delt Raise', nameTh: 'ดัมเบล 8 × 2 · แทน Rear Delt Machine · ม้า 30–45° นอนคว่ำ อกแนบเบาะ · กางแขนออกข้างตัว · รู้สึกกลางหลังมากกว่าไหล่หลัง = บีบสะบักมากไป ปล่อยสะบักไว้เฉย ๆ', gear: 'db', link: MW },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'home3',
+    home: true,
+    title: 'Home — Legs',
+    subtitle: 'ขาหน้า + ก้น / ขาหน้า / ขาหลัง / อก',
+    accent: 'legs',
+    shortLabel: 'HOME LEGS',
+    exercises: [
+      {
+        id: 'home-split-squat',
+        part: { en: 'QUAD + GLUTE', th: 'ขาหน้า + ก้น' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 120,
+        options: [
+          { id: 'bulgarian-split-squat', name: 'Bulgarian Split Squat', nameTh: 'ดัมเบล 15 × 2 · แทน Leg Press · หลังเท้าข้างหลังวางบนม้า · ย่อตรงลงจนเข่าหลังเกือบแตะพื้น · เริ่มขาที่อ่อนกว่า · ครบสองข้าง = 1 เซต จดเรพต่อข้าง', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-quad',
+        part: { en: 'QUAD', th: 'ขาหน้า' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 75,
+        options: [
+          { id: 'heels-elevated-db-squat', name: 'Heels-elevated DB Squat', nameTh: 'ดัมเบล 15 × 2 พาดไหล่ · แทน Leg Extension · ส้นเท้าวางบนหนังสือหนา ~5 ซม. ลำตัวตั้งตรง ย่อลึก ปล่อยเข่าพุ่งไปหน้า = ขาหน้าล้วน · ลง 3 วิ ค้างล่าง 1 วิ ตั้งแต่ขั้นแรก', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-rdl',
+        part: { en: 'HAMSTRING', th: 'ขาหลัง' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'single-leg-rdl', name: 'Single-leg RDL', nameTh: 'ดัมเบล 15 ถือมือฝั่งตรงข้ามขาที่ยืน · แทน Leg Curl · เข่างอนิดเดียว หลังตรง ดันก้นไปข้างหลังจนหลังขายืด · มือว่างจับเสา dip ทรงตัวได้ · ครบสองข้าง = 1 เซต', gear: 'db', link: MW },
+        ],
+      },
+      {
+        id: 'home-db-bench',
+        part: { en: 'CHEST', th: 'อก (โบนัสวันขา)' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        options: [
+          { id: 'flat-db-bench', name: 'DB Bench Press', nameTh: 'ดัมเบล 15 × 2 · แทน Smith Bench · ม้าราบ หนีบสะบัก อกยืด ศอก 45° · ลงช้า 2 วิ · ไหล่หน้าหรือข้อศอกปวดเกิน 2 สัปดาห์ให้ถอดท่านี้ (กติกาเดียวกับยิม)', gear: 'db', link: MW },
+        ],
+      },
+    ],
+  },
+];
+
+/** แผนสัปดาห์ของชุดบ้าน — ใช้แทน WEEKLY_PLAN ตอนเลือก "บ้าน" */
+export const HOME_PLAN = [
+  ['เวทที่บ้าน 6 วัน', 'ตี 4–5 เหมือนเดิม · วน Push/Pull/Legs สองรอบ พักอาทิตย์'],
+  ['▲ ขยับขั้น', `ได้ 12 ครบสามเซต → เซสชันถัดไปขยับขั้น: ${HOME_STEPS}`],
+  ['จดน้ำหนัก', 'ต่อดัมเบลหนึ่งลูก (15 ไม่ใช่ 30) · ท่าข้างเดียวจดเรพต่อข้าง · Pull-up/Dips น้ำหนักใส่ 0 นับเฉพาะครั้งเต็ม'],
+  ['Ab Roller + น่อง', 'เหมือนเดิม 3–4 วัน/สัปดาห์ · น่องได้ 20 ง่าย ๆ → ถือดัมเบล 15 ข้างเดียว'],
+  ['คาร์ดิโอเย็น', 'กระโดดเชือกในบ้านแทนเดิน · ไม่มีที่ก็งด ไม่ต้องเพิ่มเซตชดเชย · อย่าเดินลุยน้ำท่วม'],
+];
+
+/** ชุดตารางตามสถานที่ — ปุ่ม ยิม/บ้าน หน้าแรกสลับระหว่างสองชุดนี้ */
+export const PLACES = {
+  gym: { label: 'ยิม', days: PROGRAM, plan: WEEKLY_PLAN },
+  home: { label: 'บ้าน', days: HOME_PROGRAM, plan: HOME_PLAN },
+};
+
+const ALL_DAYS = [...PROGRAM, ...HOME_PROGRAM];
+
+/** หา Day จาก id (ทั้งยิมและบ้าน) */
 export function getDay(dayId) {
-  return PROGRAM.find((d) => d.id === dayId) || null;
+  return ALL_DAYS.find((d) => d.id === dayId) || null;
 }
 
-/** หา Exercise จาก id (ค้นข้ามทุกวัน) */
+/** หา Exercise จาก id (ค้นข้ามทุกวัน ทั้งยิมและบ้าน) */
 export function getExercise(exerciseId) {
-  for (const day of PROGRAM) {
+  for (const day of ALL_DAYS) {
     const ex = day.exercises.find((e) => e.id === exerciseId);
     if (ex) return { day, exercise: ex };
   }

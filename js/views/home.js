@@ -1,5 +1,5 @@
-import { PROGRAM, WEEKLY_PLAN, totalSets, estimateMinutes } from '../program.js';
-import { getLastPlayedMap, getActiveSession, hasProgress } from '../storage.js';
+import { PLACES, totalSets, estimateMinutes } from '../program.js';
+import { getLastPlayedMap, getActiveSession, hasProgress, getSettings, setSetting } from '../storage.js';
 import { weekSummary, readyToOverload, fmtNum } from '../stats.js';
 import { relativeDay } from '../format.js';
 import { html, toElement } from '../dom.js';
@@ -8,10 +8,10 @@ import { html, toElement } from '../dom.js';
  * วันที่ควรเล่นต่อไป = วันที่ไม่ได้เล่นมานานที่สุด
  * (วันที่ยังไม่เคยเล่นเลย มาก่อนเสมอ เรียงตามลำดับในตาราง)
  */
-function pickNextDay(lastPlayed) {
-  const never = PROGRAM.find((d) => !lastPlayed[d.id]);
+function pickNextDay(days, lastPlayed) {
+  const never = days.find((d) => !lastPlayed[d.id]);
   if (never) return never.id;
-  return PROGRAM.reduce((oldest, d) =>
+  return days.reduce((oldest, d) =>
     lastPlayed[d.id] < lastPlayed[oldest.id] ? d : oldest,
   ).id;
 }
@@ -44,7 +44,9 @@ function dayCard(day, index, lastPlayed, nextId, activeDayId) {
       <div class="card__foot">
         <span class="card__last">
           ${last ? html`เล่นล่าสุด <b>${relativeDay(last)}</b>` : 'ยังไม่เคยเล่น'}
-          ${overloads ? html` · <b class="up">▲ ${overloads} ท่าพร้อมเพิ่มน้ำหนัก</b>` : ''}
+          ${overloads
+            ? html` · <b class="up">▲ ${overloads} ท่า${day.home ? 'พร้อมขยับขั้น' : 'พร้อมเพิ่มน้ำหนัก'}</b>`
+            : ''}
         </span>
         <span class="card__go" aria-hidden="true">${isActive ? 'เล่นต่อ →' : 'เริ่ม →'}</span>
       </div>
@@ -53,16 +55,25 @@ function dayCard(day, index, lastPlayed, nextId, activeDayId) {
 }
 
 export function renderHome() {
+  const placeId = PLACES[getSettings().place] ? getSettings().place : 'gym';
+  const place = PLACES[placeId];
   const lastPlayed = getLastPlayedMap();
-  const nextId = pickNextDay(lastPlayed);
-  const week = weekSummary();
+  const nextId = pickNextDay(place.days, lastPlayed);
+  const week = weekSummary(Date.now(), place.days);
   const active = getActiveSession();
   const activeDayId = active && hasProgress(active) ? active.dayId : null;
 
-  return toElement(html`
+  const view = toElement(html`
     <section class="view view--home">
+      <div class="seg seg--place" role="group" aria-label="เล่นที่ไหน">
+        ${Object.entries(PLACES).map(
+          ([id, p]) => html`<button class="seg__btn" type="button" data-place="${id}"
+                        aria-pressed="${id === placeId ? 'true' : 'false'}">${p.label}</button>`,
+        )}
+      </div>
+
       <header class="hero">
-        <p class="hero__eyebrow">โปรแกรม 3 วัน / สัปดาห์</p>
+        <p class="hero__eyebrow">โปรแกรม 3 วัน / สัปดาห์ · ${place.label}</p>
         <h1 class="hero__title">เลือกวันที่<br />จะเล่นวันนี้</h1>
         <div class="hero__stats">
           <p class="hero__stat">
@@ -85,15 +96,24 @@ export function renderHome() {
       </header>
 
       <div class="cards">
-        ${PROGRAM.map((d, i) => dayCard(d, i, lastPlayed, nextId, activeDayId))}
+        ${place.days.map((d, i) => dayCard(d, i, lastPlayed, nextId, activeDayId))}
       </div>
 
       <div class="note plan">
         <b>แผนทั้งสัปดาห์</b>
         <ul class="plan__list">
-          ${WEEKLY_PLAN.map(([title, detail]) => html`<li><b>${title}</b> — ${detail}</li>`)}
+          ${place.plan.map(([title, detail]) => html`<li><b>${title}</b> — ${detail}</li>`)}
         </ul>
       </div>
     </section>
   `);
+
+  view.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-place]');
+    if (!btn || btn.dataset.place === placeId) return;
+    setSetting('place', btn.dataset.place);
+    view.replaceWith(renderHome());
+  });
+
+  return view;
 }

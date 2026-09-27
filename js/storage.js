@@ -41,7 +41,7 @@ function emptyData() {
   return {
     version: VERSION,
     sessions: [],
-    settings: { theme: 'auto', sound: true, vibrate: true, equipment: {} },
+    settings: { theme: 'auto', sound: true, vibrate: true, place: 'gym', equipment: {} },
   };
 }
 

@@ -111,7 +111,7 @@ function swapPanel(ex, selectedId) {
   `;
 }
 
-function exerciseCard(ex, index, session, selectedId) {
+function exerciseCard(day, ex, index, session, selectedId) {
   const saved = (session.entries || {})[ex.id] || [];
   const prev = previousSets(ex.id, session.id);
   const overload = readyToOverload(ex);
@@ -138,7 +138,9 @@ function exerciseCard(ex, index, session, selectedId) {
               ⇄ ใช้ตัวอื่นแทน
             </button>`
           : ''}
-        ${overload ? html`<span class="badge badge--overload">▲ พร้อมเพิ่มน้ำหนัก</span>` : ''}
+        ${overload
+          ? html`<span class="badge badge--overload">▲ ${day.home ? 'ขยับขั้นถัดไป' : 'พร้อมเพิ่มน้ำหนัก'}</span>`
+          : ''}
       </div>
 
       ${ex.options.length > 1 ? swapPanel(ex, opt.id) : ''}
@@ -173,7 +175,7 @@ export function renderWorkout(params) {
       </div>
 
       <ol class="ex-list">
-        ${day.exercises.map((ex, i) => exerciseCard(ex, i, session, equipment[ex.id]))}
+        ${day.exercises.map((ex, i) => exerciseCard(day, ex, i, session, equipment[ex.id]))}
       </ol>
 
       <div class="finish">

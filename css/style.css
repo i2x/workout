@@ -1063,6 +1063,7 @@ body.has-timer { padding-bottom: calc(var(--tabbar-h) + 74px + env(safe-area-ins
 }
 
 .seg__btn[aria-pressed='true'] { color: var(--on-accent); background: var(--push); }
+.seg--place { margin-bottom: 18px; }
 
 .srow {
   display: flex;

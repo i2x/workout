@@ -1,7 +1,7 @@
 import { getSessions, deleteSession } from '../storage.js';
 import { sessionStats, weekSummary, fmtNum, fmtWeight } from '../stats.js';
 import { relativeDay, shortDate, clockTime } from '../format.js';
-import { PROGRAM, getOption, mainName } from '../program.js';
+import { PLACES, getOption, mainName } from '../program.js';
 import { html, toElement } from '../dom.js';
 
 function summaryCard() {
@@ -100,7 +100,7 @@ export function renderHistory() {
 
       <h2 class="section-title">ความก้าวหน้ารายท่า</h2>
       <ul class="exlinks">
-        ${PROGRAM.map(
+        ${[...PLACES.gym.days, ...PLACES.home.days].map(
           (day) => html`
             <li data-accent="${day.accent}">
               <p class="exlinks__day">${day.shortLabel}</p>

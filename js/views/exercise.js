@@ -1,4 +1,4 @@
-import { getExercise, repsLabel, getOption, mainName, GEAR } from '../program.js';
+import { getExercise, repsLabel, getOption, mainName, GEAR, HOME_STEPS } from '../program.js';
 import { getEquipment, setEquipment, getSessions } from '../storage.js';
 import { exerciseHistory, personalRecord, readyToOverload, fmtNum, fmtWeight } from '../stats.js';
 import { shortDate, relativeDay } from '../format.js';
@@ -47,9 +47,13 @@ export function renderExercise(params) {
 
       ${overload
         ? html`<p class="callout callout--overload">
-            <b>▲ พร้อมเพิ่มน้ำหนัก</b>
+            <b>▲ ${day.home ? 'ขยับขั้นถัดไป' : 'พร้อมเพิ่มน้ำหนัก'}</b>
             ครั้งล่าสุดทำครบ ${ex.sets} เซตที่ ${ex.repsMax} ${ex.isTimed ? 'วินาที' : 'ครั้ง'} แล้ว
-            ${ex.isTimed ? 'ลองเพิ่มเวลาอีก 10–15 วินาที' : 'ลองขยับน้ำหนักขึ้น 2.5–5 kg แล้วเริ่มที่ปลายล่างของช่วงเรพ'}
+            ${ex.isTimed
+              ? 'ลองเพิ่มเวลาอีก 10–15 วินาที'
+              : day.home
+                ? `ครั้งหน้าทำให้ยากขึ้นหนึ่งขั้น: ${HOME_STEPS}`
+                : 'ลองขยับน้ำหนักขึ้น 2.5–5 kg แล้วเริ่มที่ปลายล่างของช่วงเรพ'}
           </p>`
         : ''}
 
