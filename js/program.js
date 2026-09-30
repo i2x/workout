@@ -221,6 +221,9 @@ export const WEEKLY_PLAN = [
  * Pull-up จดเฉพาะครั้งที่ขึ้นเต็มเอง ครั้งที่เท้าช่วยไม่จด — แบดจ์ขึ้น = หนีบดัมเบลที่เท้า
  * Push-up ขยับขั้นด้วยมุม (มือบนม้า → พื้น → เท้าบนม้า) แทนการเพิ่มน้ำหนัก
  *   id home-dips ถูกแทนด้วย home-pushup (ก.ย. 2026 ทำ Dips ไม่ได้) — อย่าเอา home-dips ไปใช้กับท่าอื่น
+ * วันขาใช้ท่าสองเท้าติดพื้นเท่านั้น (ก.ย. 2026 ท่าขาเดียว/ต้องทรงตัวซับซ้อนเกิน)
+ *   Squat ท่าเดียวแทนทั้ง Leg Press + Leg Extension — ไม่มีท่าขาหน้าแยก · RDL สองขาแทน Leg Curl
+ *   id home-split-squat / home-quad / home-rdl เลิกใช้ — อย่าเอาไปใช้กับท่าอื่น
  */
 export const HOME_STEPS = 'ลง 3 วิ → + ค้าง 1–2 วิ ตรงจุดยากสุด → 1½ เรพ → ดัมเบลหนักขึ้นหรือทำทีละข้าง';
 
@@ -332,32 +335,24 @@ export const HOME_PROGRAM = [
     id: 'home3',
     home: true,
     title: 'Home — Legs',
-    subtitle: 'ขาหน้า + ก้น / ขาหน้า / ขาหลัง / อก',
+    subtitle: 'ขาหน้า + ก้น / ขาหลัง / อก',
     accent: 'legs',
     shortLabel: 'HOME LEGS',
     exercises: [
       {
-        id: 'home-split-squat',
+        id: 'home-squat',
         part: { en: 'QUAD + GLUTE', th: 'ขาหน้า + ก้น' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 120,
         options: [
-          { id: 'bulgarian-split-squat', name: 'Bulgarian Split Squat', nameTh: 'ดัมเบล 15 × 2 · แทน Leg Press · หลังเท้าข้างหลังวางบนม้า · ย่อตรงลงจนเข่าหลังเกือบแตะพื้น · เริ่มขาที่อ่อนกว่า · ครบสองข้าง = 1 เซต จดเรพต่อข้าง', gear: 'db', link: MW },
+          { id: 'db-squat', name: 'DB Squat', nameTh: 'ดัมเบล 15 × 2 ถือห้อยข้างลำตัว · แทน Leg Press + Leg Extension · ยืนเท้ากว้างเท่าไหล่ ปลายเท้าแบะนิด · นั่งลงตรง ๆ เหมือนนั่งเก้าอี้ จนต้นขาขนานพื้น · ดันพื้นยืนขึ้น · สองเท้าติดพื้น ไม่ต้องทรงตัว', gear: 'db', link: MW },
         ],
       },
       {
-        id: 'home-quad',
-        part: { en: 'QUAD', th: 'ขาหน้า' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 75,
-        options: [
-          { id: 'heels-elevated-db-squat', name: 'Heels-elevated DB Squat', nameTh: 'ดัมเบล 15 × 2 พาดไหล่ · แทน Leg Extension · ส้นเท้าวางบนหนังสือหนา ~5 ซม. ลำตัวตั้งตรง ย่อลึก ปล่อยเข่าพุ่งไปหน้า = ขาหน้าล้วน · ลง 3 วิ ค้างล่าง 1 วิ ตั้งแต่ขั้นแรก', gear: 'db', link: MW },
-        ],
-      },
-      {
-        id: 'home-rdl',
+        id: 'home-db-rdl',
         part: { en: 'HAMSTRING', th: 'ขาหลัง' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
         options: [
-          { id: 'single-leg-rdl', name: 'Single-leg RDL', nameTh: 'ดัมเบล 15 ถือมือฝั่งตรงข้ามขาที่ยืน · แทน Leg Curl · เข่างอนิดเดียว หลังตรง ดันก้นไปข้างหลังจนหลังขายืด · มือว่างจับเสา dip ทรงตัวได้ · ครบสองข้าง = 1 เซต', gear: 'db', link: MW },
+          { id: 'db-rdl', name: 'DB Romanian Deadlift', nameTh: 'ดัมเบล 15 × 2 ถือหน้าต้นขา · แทน Leg Curl · ยืนสองเท้า เข่างอนิดเดียวแล้วล็อกไว้ · หลังตรง ดันก้นไปข้างหลัง ให้ดัมเบลไถลงตามขา จนหลังขาตึง (ประมาณหน้าแข้ง) · บีบก้นยืนขึ้น', gear: 'db', link: MW },
         ],
       },
       {
