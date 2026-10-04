@@ -31,7 +31,7 @@
 
 **เครื่อง + เคเบิลเท่านั้น ไม่มีดัมเบล**
 - Day 3 (Legs) เป็นเครื่องล้วน ชื่อตรงกับป้ายบนเครื่อง: Leg Press · Leg Extension · Leg Curl · ปิดท้ายด้วย MultiPress Chest Press (ทดลอง) — น่องกับท้องทำที่บ้าน ตารางยิมเก็บเฉพาะท่าที่ต้องใช้เครื่อง
-- ท่าดันอกที่เคยใช้สมิธย้ายไปเครื่อง Matrix MultiPress หมด (ต.ค. 2026): Incline วัน Push · Chest Press ปิดวันขา — ปรับพนักพิงครั้งเดียว ไม่ต้องตั้ง safety/ปลดล็อกบาร์
+- ไม่มีสมิธในตาราง (setup นาน) — ท่าดันอกที่เคยใช้สมิธย้ายไปเครื่อง Matrix MultiPress หมด (ต.ค. 2026): Incline วัน Push · Chest Press ปิดวันขา — ปรับพนักพิงครั้งเดียว ไม่ต้องตั้ง safety/ปลดล็อกบาร์
 - Day 1/2 ใช้เครื่อง Chest Press · Lat Pulldown เป็นหลัก · แขนแยกไปคนละวัน: Pushdown ปิดท้าย Push, Cable Curl ต่อจาก Row ใน Pull
 - ส่วนที่ไม่มีเครื่องเฉพาะใช้เคเบิลแทน และเขียนวิธีตั้งเครื่องกำกับไว้
   (รอกสูงเท่าไหร่ · ใส่ด้ามอะไร · ท่าทางย่อ ๆ)
@@ -157,7 +157,7 @@ mkdir -p /tmp/pages-test && ln -sfn "$PWD" /tmp/pages-test/workout && npx serve 
 }
 ```
 
-`gear` รับค่า: `machine` เครื่อง · `cable` เคเบิล · `smith` สมิธ · `db` ดัมเบล · `bb` บาร์เบล ·
+`gear` รับค่า: `machine` เครื่อง · `cable` เคเบิล · `db` ดัมเบล · `bb` บาร์เบล ·
 `body` บอดี้เวท (แก้ป้ายภาษาไทยได้ที่ `GEAR` ในไฟล์เดียวกัน)
 
 ถ้าท่าไหนมี `options` อันเดียว ปุ่ม "ใช้ตัวอื่นแทน" จะไม่ขึ้น
@@ -230,7 +230,7 @@ key เดียวคือ `workout-tracker:v1` เก็บเป็น JSON 
     "theme": "auto",
     "sound": true,
     "vibrate": true,
-    "equipment": { "chest-press": "smith-bench" }   // ตัวที่เลือกไว้ล่าสุดของแต่ละท่า
+    "equipment": { "chest-press": "machine-chest-press" }   // ตัวที่เลือกไว้ล่าสุดของแต่ละท่า
   }
 }
 ```

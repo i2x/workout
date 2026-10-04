@@ -6,7 +6,7 @@
  * @property {string} id
  * @property {string} name            ชื่ออังกฤษ (ตรงกับป้ายบนเครื่อง/ท่าในยิม)
  * @property {string} [nameTh]        ชื่อไทย
- * @property {'machine'|'cable'|'smith'|'db'|'bb'|'body'} gear
+ * @property {'machine'|'cable'|'db'|'bb'|'body'} gear
  * @property {string} [link]          ลิงก์วิดีโอ/คู่มือสอนท่า
  *
  * @typedef {Object} Exercise         หนึ่งท่าในตาราง
