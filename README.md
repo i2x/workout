@@ -38,7 +38,13 @@
 
 **เก็บเฉพาะท่าที่ไม่มีอะไรแทนได้**
 - ท่าที่ซ้ำกับท่าอื่นในวันเดียวกันถูกตัดออก
-- Pec Fly เคยตัดแล้วเอากลับมา — ท่าดันอกไม่พามือเข้าชิดกลางอก เล่นแล้วโดนแต่อกด้านข้าง · อยู่ Day 2 ติดกับ Rear Delt เพราะเป็นเครื่องเดียวกัน
+- Pec Fly เคยตัดแล้วเอากลับมา — ท่าดันอกไม่พามือเข้าชิดกลางอก เล่นแล้วโดนแต่อกด้านข้าง
+- **จัดใหม่เพื่อ six pack + V-taper (ต.ค. 2026)** — ท่าอกรวมอยู่ Push วันเดียว ไหล่ข้างได้สองวัน
+  - Push: Lateral Raise · Incline · Chest Press · Pec Fly · Pushdown
+  - Pull: Lat Pulldown · Seated Row · Cable Curl · Lateral Raise · Rear Delt
+  - Legs: Leg Press · Leg Extension · Leg Curl · Abdominal
+  - Shoulder Press ออก (ลงไหล่หน้า ซึ่งท่าดันอกคุมอยู่แล้ว) · Pec Fly ย้ายจาก Pull มา Push · ช่องว่างใน Pull ใส่ Lateral Raise รอบสอง
+  - Lateral Raise ใช้ id เดียวกันทั้งสองวัน ประวัติ/auto-fill/แบดจ์ต่อกัน · ชุดบ้านจัดตามเหมือนกัน
 - Lateral Raise (ไหล่ข้าง) และ Seated Cable Row (กลางหลัง) ห้ามตัด ไม่มีท่าอื่นในตารางคุมสองส่วนนี้
 
 **ท่าละตัวเดียว ไม่มีตัวสำรอง**

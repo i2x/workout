@@ -24,8 +24,16 @@
  *   อกบนใช้ MultiPress ตำแหน่ง Incline (ต.ค. 2026 เจอเครื่อง — เดิม Smith Incline 30° ซึ่งเปลี่ยนมาจาก Low-to-High Cable Fly) ไว้ก่อน Chest Press ตอนอกยังสด
  *   Pec Fly เคยตัดเพราะคิดว่า Chest Press คุมอกแล้ว — เอากลับมา (ก.ย. 2026) เพราะท่าดันไม่พามือเข้าชิดกลางอก
  *   เล่นแล้วรู้สึกแค่อกด้านข้าง ช่วงหดตัวด้านในไม่มีท่าไหนคุม
- *   อยู่ Day 2 ติดกับ Rear Delt เพราะเป็นเครื่องเดียวกัน — ท่าหน้า/หลังรวดเดียว แค่หมุนตัวนั่งกลับด้าน
  *   Lateral Raise กับ Seated Row ห้ามตัด เป็นท่าเดียวที่คุมไหล่ข้างกับกลางหลัง
+ *
+ * จัดใหม่เพื่อ six pack + V-taper (ต.ค. 2026) — ท่าอกรวมอยู่วัน Push วันเดียว ไหล่ข้างได้สองวัน
+ *   Pec Fly ย้ายจาก Pull → Push (เดิมอยู่ Pull เพราะเครื่องเดียวกับ Rear Delt แต่ทำให้วันดึงมีท่าอกแทรก)
+ *   Shoulder Press ออก — ส่วนใหญ่ลงไหล่หน้า ซึ่ง Incline + Chest Press คุมอยู่แล้ว ไหล่หน้าไม่ได้ทำให้ไหล่กว้าง
+ *     id shoulder-press เลิกใช้ — อย่าเอาไปใช้กับท่าอื่น · ถ้าเอากลับมาใช้ id เดิม ประวัติต่อกัน
+ *   ช่องที่ว่างใน Pull ใส่ Lateral Raise รอบสอง (เดิมเป็น "เซตเบา" ในโน้ตที่ไม่เคยได้ทำ) — ไหล่ข้างคือส่วนที่ดันไหล่ออกด้านข้าง
+ *   เซต/สัปดาห์ (เล่น 2 รอบ): อก 18 · ไหล่ข้าง 12 · ปีก+กลางหลัง 12 · ไหล่หลัง 6 · ไหล่หน้าได้จากท่าดันอก 12
+ *   ท้องอยู่วันขา 6 เซต/สัปดาห์ พอสำหรับให้กล้ามหนา — six pack จะเห็นหรือไม่ขึ้นกับไขมัน (อาหาร + นอน) ไม่ใช่จำนวนเซตท้อง
+ *   ไม่ใส่ท่าเอวข้าง (oblique) หนัก ๆ — เอวหนาขึ้นจะกิน V-taper
  *   ท่าที่ทำแล้ว "ไม่รู้สึกโดน" แก้ที่คำแนะนำใน nameTh ก่อน อย่าเพิ่งตัดท่าทิ้ง
  *
  *   Lateral Raise เป็นท่าแรกของ Push (ก.ย. 2026) — ไหล่ข้างคือกล้ามหลักของทรง V ให้เล่นตอนสด แล้วเดินไปโซนเครื่องรวดเดียว ไม่ต้องกลับมาเคเบิลอีก
@@ -54,23 +62,30 @@ export const GEAR = {
   body: 'บอดี้เวท',
 };
 
+/**
+ * ไหล่ข้างอยู่ทั้ง Push และ Pull — ใช้ object เดียวกัน id เดียวกัน
+ * ประวัติ / auto-fill / แบดจ์เพิ่มน้ำหนัก ต่อกันข้ามวัน (ครั้งล่าสุดของวันไหนก็ได้)
+ * @type {import('./types.js').Exercise}
+ */
+const LATERAL_RAISE = {
+  id: 'lateral-raise',
+  part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
+  sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+  options: [
+    { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'Push: ท่าแรก เล่นตอนสด · Pull: ต่อจาก Curl เปลี่ยนเป็นด้ามเดี่ยว (ถ้ารอกโรว์ยืนข้างเสาไม่ได้ ใช้เสาเดียวกับวัน Push) · รอกล่างสุด · ยืนข้างเสาทีละข้าง · เอาเบาไว้ ห้ามยักบ่า ยกแค่ระดับไหล่ · นำด้วยศอก ไม่ใช่มือ', gear: 'cable', link: MW },
+  ],
+};
+
 /** @type {import('./types.js').Day[]} */
 export const PROGRAM = [
   {
     id: 'day1',
     title: 'Day 1 — Push',
-    subtitle: 'ไหล่ข้าง / อกบน / อก / ไหล่ / ไตรเซป',
+    subtitle: 'ไหล่ข้าง / อกบน / อก / อกด้านใน / ไตรเซป',
     accent: 'push',
     shortLabel: 'PUSH',
     exercises: [
-      {
-        id: 'lateral-raise',
-        part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'cable-lateral-raise', name: 'Cable Lateral Raise', nameTh: 'ท่าแรกของวัน — ไหล่ข้างเล่นตอนสด แล้วค่อยไปโซนเครื่อง · รอกล่างสุด · ด้ามเดี่ยว · ยืนข้างเสาทีละข้าง · เอาเบาไว้ ห้ามยักบ่า ยกแค่ระดับไหล่', gear: 'cable', link: MW },
-        ],
-      },
+      LATERAL_RAISE,
       {
         id: 'incline-press',
         part: { en: 'UPPER CHEST', th: 'อกบน' },
@@ -88,11 +103,11 @@ export const PROGRAM = [
         ],
       },
       {
-        id: 'shoulder-press',
-        part: { en: 'SHOULDER', th: 'ไหล่' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        id: 'chest-fly',
+        part: { en: 'CHEST', th: 'อกด้านใน' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
-          { id: 'machine-shoulder-press', name: 'Shoulder Press Machine', nameTh: 'ดันไหล่ด้วยเครื่อง — ปรับเบาะให้ด้ามอยู่ระดับหู', gear: 'machine', link: MW },
+          { id: 'pec-fly-machine', name: 'Pec Fly', nameTh: 'ต่อจาก Chest Press ตอนอกอุ่นแล้ว · เครื่องเดียวกับ Rear Delt วัน Pull — วันนี้นั่งหันหลังชนเบาะ · ปรับเบาะให้ด้ามอยู่ระดับอก · ศอกงอนิดเดียวค้างไว้ · หนีบแขนเข้ามาจนมือเกือบชนกัน บีบค้าง 1 วิ แล้วปล่อยกลับช้า ๆ · เอาเบาไว้ ท่านี้วัดกันที่บีบได้สุด ไม่ใช่น้ำหนัก', gear: 'machine', link: MW },
         ],
       },
       {
@@ -109,7 +124,7 @@ export const PROGRAM = [
   {
     id: 'day2',
     title: 'Day 2 — Pull',
-    subtitle: 'ปีก / กลางหลัง / ไบเซป / อก / ไหล่หลัง',
+    subtitle: 'ปีก / กลางหลัง / ไบเซป / ไหล่ข้าง / ไหล่หลัง',
     accent: 'pull',
     shortLabel: 'PULL',
     exercises: [
@@ -137,20 +152,13 @@ export const PROGRAM = [
           { id: 'cable-curl', name: 'Cable Curl', nameTh: 'อยู่ที่รอกล่างเดิมจากท่าโรว์ ไม่ต้องย้ายเสา · เปลี่ยนเป็นบาร์ตรง จับหงายมือกว้างเท่าไหล่ · ถอยจากเสา 1 ก้าว ยืนชิดเสาแล้วช่วงล่างสุดจะไม่มีแรงต้าน เสียของ · ศอกแนบซี่โครง ห้ามเลื่อนไปข้างหน้า ไม่งั้นไหล่หน้าช่วยยก · ม้วนขึ้นหาไหล่', gear: 'cable', link: MW },
         ],
       },
-      {
-        id: 'chest-fly',
-        part: { en: 'CHEST', th: 'อกด้านใน' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'pec-fly-machine', name: 'Pec Fly', nameTh: 'เครื่องเดียวกับ Rear Delt ท่าถัดไป — เล่นท่านี้ก่อน เสร็จแล้วหมุนตัวนั่งกลับด้านเล่นต่อได้เลยไม่ต้องย้ายเครื่อง · นั่งหันหลังชนเบาะ · ปรับเบาะให้ด้ามอยู่ระดับอก · ศอกงอนิดเดียวค้างไว้ · หนีบแขนเข้ามาจนมือเกือบชนกัน บีบค้าง 1 วิ แล้วปล่อยกลับช้า ๆ · เอาเบาไว้ ท่านี้วัดกันที่บีบได้สุด ไม่ใช่น้ำหนัก', gear: 'machine', link: MW },
-        ],
-      },
+      LATERAL_RAISE,
       {
         id: 'rear-delt',
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
         sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
-          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'เครื่องเดียวกับ Pec Fly แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
+          { id: 'reverse-pec-deck', name: 'Rear Delt Machine', nameTh: 'ท่าสุดท้าย · เครื่องเดียวกับ Pec Fly วัน Push แค่นั่งกลับด้าน · หันอกชนเบาะ กางแขนออกไปข้างหลัง · เช็ค: ถ้ารู้สึกที่อก แปลว่านั่งผิดด้าน', gear: 'machine', link: MW },
         ],
       },
     ],
@@ -205,7 +213,8 @@ export const PROGRAM = [
  */
 export const WEEKLY_PLAN = [
   ['ยิม 6 วัน', 'วันละ 4–5 ท่า ~25–30 นาที ตามการ์ดด้านบน · 3 เซตใส่สุด · เก็บเฉพาะท่าที่ต้องใช้เครื่อง'],
-  ['Lateral Raise เซตเบา', '2 เซตในวัน Pull กับ Legs · เหลือแรง 2–3 ครั้ง · รวมไหล่ข้าง 10 เซต/สัปดาห์'],
+  ['V-taper', 'ไหล่ข้าง 12 เซต/สัปดาห์ (Lateral Raise ทั้ง Push และ Pull) · ปีก + กลางหลัง 12 · อกรวมอยู่วัน Push'],
+  ['Six pack', 'ท้องเครื่อง Abdominal วันขา · กล้ามท้องมีอยู่แล้ว จะเห็นเมื่อไขมันลง — อาหาร + นอน ≥6 ชม. สำคัญกว่าเพิ่มเซตท้อง'],
   ['เซตสนุก (ไม่บังคับ)', 'ท้ายวันไหนก็ได้ เครื่องอื่นอย่างละ 1 เซต รวมไม่เกิน 4 · เหลือแรง 2–3 ครั้ง ไม่ต้องจด · นอนไม่ถึง 6 ชม. ตัดก่อน'],
   ['เดิน — ตัวช่วยสำรอง', 'ยังไม่ต้องทำ · ใช้เมื่อรอบเอวหยุดลด 2 สัปดาห์และเช็กการนอนแล้ว: เดิน 20–30 นาทีหลังมื้อเย็น ก่อนจะลดอาหาร'],
 ];
@@ -227,8 +236,20 @@ export const WEEKLY_PLAN = [
  *   Squat ท่าเดียวแทนทั้ง Leg Press + Leg Extension — ไม่มีท่าขาหน้าแยก · RDL สองขาแทน Leg Curl
  *   id home-split-squat / home-quad / home-rdl เลิกใช้ — อย่าเอาไปใช้กับท่าอื่น
  * ปิดวันขาด้วย Ab Roller แทนเครื่อง Abdominal (ต.ค. 2026) · id home-db-bench เลิกใช้ — อย่าเอาไปใช้กับท่าอื่น
+ * จัดตามยิม (ต.ค. 2026 six pack + V-taper): DB Fly ย้าย Pull → Push แทน Seated DB Press · DB Lateral อยู่ทั้ง Push และ Pull
+ *   id home-shoulder-press เลิกใช้ — อย่าเอาไปใช้กับท่าอื่น
  */
 export const HOME_STEPS = 'ลง 3 วิ → + ค้าง 1–2 วิ ตรงจุดยากสุด → 1½ เรพ → ดัมเบลหนักขึ้นหรือทำทีละข้าง';
+
+/** ไหล่ข้างที่บ้าน — อยู่ทั้ง Home Push และ Home Pull เหมือนยิม ใช้ object เดียวกัน */
+const HOME_LATERAL = {
+  id: 'home-lateral-raise',
+  part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
+  sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
+  options: [
+    { id: 'db-lateral-raise', name: 'DB Lateral Raise', nameTh: 'ดัมเบล 8 · แทน Cable Lateral · Push ท่าแรก / Pull ต่อจาก Curl · ยืนตรง ยกแค่ระดับไหล่ ห้ามยักบ่า ห้ามเหวี่ยง · 8 kg ไม่ถึง 8 ครั้ง → ทำทีละแขน มืออีกข้างจับเสา dip', gear: 'db', link: MW },
+  ],
+};
 
 /** @type {import('./types.js').Day[]} */
 export const HOME_PROGRAM = [
@@ -236,18 +257,11 @@ export const HOME_PROGRAM = [
     id: 'home1',
     home: true,
     title: 'Home — Push',
-    subtitle: 'ไหล่ข้าง / อกบน / อก / ไหล่ / ไตรเซป',
+    subtitle: 'ไหล่ข้าง / อกบน / อก / อกด้านใน / ไตรเซป',
     accent: 'push',
     shortLabel: 'HOME PUSH',
     exercises: [
-      {
-        id: 'home-lateral-raise',
-        part: { en: 'SIDE DELT', th: 'ไหล่ข้าง' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'db-lateral-raise', name: 'DB Lateral Raise', nameTh: 'ดัมเบล 8 · แทน Cable Lateral · ยืนตรง ยกแค่ระดับไหล่ ห้ามยักบ่า ห้ามเหวี่ยง · 8 kg ไม่ถึง 8 ครั้ง → ทำทีละแขน มืออีกข้างจับเสา dip', gear: 'db', link: MW },
-        ],
-      },
+      HOME_LATERAL,
       {
         id: 'home-incline-press',
         part: { en: 'UPPER CHEST', th: 'อกบน' },
@@ -265,11 +279,11 @@ export const HOME_PROGRAM = [
         ],
       },
       {
-        id: 'home-shoulder-press',
-        part: { en: 'SHOULDER', th: 'ไหล่' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 90,
+        id: 'home-fly',
+        part: { en: 'CHEST', th: 'อกด้านใน' },
+        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
         options: [
-          { id: 'seated-db-press', name: 'Seated DB Shoulder Press', nameTh: 'ดัมเบล 15 × 2 · แทน Shoulder Press · ม้าตั้ง ~80° ไม่ต้องตั้งฉากเป๊ะ · เริ่มที่ดัมเบลระดับหู ข้อมืออยู่เหนือศอก', gear: 'db', link: MW },
+          { id: 'flat-db-fly', name: 'DB Fly', nameTh: 'เริ่มดัมเบล 8 → 15 · แทน Pec Fly · ต่อจาก Push-up · ม้าราบ ศอกงอนิดเดียวแล้วล็อก · ลงจนอกยืด · ขึ้นมาหยุดก่อนดัมเบลชนกัน (ชนแล้วแรงต้านหาย) บีบอกค้าง 1 วิ', gear: 'db', link: MW },
         ],
       },
       {
@@ -287,7 +301,7 @@ export const HOME_PROGRAM = [
     id: 'home2',
     home: true,
     title: 'Home — Pull',
-    subtitle: 'ปีก / กลางหลัง / ไบเซป / อก / ไหล่หลัง',
+    subtitle: 'ปีก / กลางหลัง / ไบเซป / ไหล่ข้าง / ไหล่หลัง',
     accent: 'pull',
     shortLabel: 'HOME PULL',
     exercises: [
@@ -315,14 +329,7 @@ export const HOME_PROGRAM = [
           { id: 'incline-db-curl', name: 'Incline DB Curl', nameTh: 'ดัมเบล 8 × 2 · แทน Cable Curl · นั่งม้าเอน 45–60° แขนห้อยเลยลำตัวไปข้างหลัง ช่วงล่างยืดเหมือนเคเบิล · ศอกนิ่ง ม้วนขึ้นหาไหล่', gear: 'db', link: MW },
         ],
       },
-      {
-        id: 'home-fly',
-        part: { en: 'CHEST', th: 'อกด้านใน' },
-        sets: 3, repsMin: 8, repsMax: 12, restSec: 60,
-        options: [
-          { id: 'flat-db-fly', name: 'DB Fly', nameTh: 'เริ่มดัมเบล 8 → 15 · แทน Pec Fly · ม้าราบ ศอกงอนิดเดียวแล้วล็อก · ลงจนอกยืด · ขึ้นมาหยุดก่อนดัมเบลชนกัน (ชนแล้วแรงต้านหาย) บีบอกค้าง 1 วิ', gear: 'db', link: MW },
-        ],
-      },
+      HOME_LATERAL,
       {
         id: 'home-rear-delt',
         part: { en: 'REAR DELT', th: 'ไหล่หลัง' },
